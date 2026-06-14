@@ -1,0 +1,170 @@
+{
+  "slug": "multi-step-routing",
+  "form_name": "[TEST] Multi-Step Routing",
+  "description": "[TEST] Seeded form — 4-step flow with conditional routing, per-step validation, and review",
+  "form_type": "multi_step",
+  "config": {
+    "form_name": "[TEST] Multi-Step Routing",
+    "form_type": "multi_step",
+    "settings": { "store_submissions": true },
+    "notifications": [],
+    "actions": [
+      { "action_id": "a1", "action_type": "save_submission", "enabled": true, "config": {} }
+    ],
+    "steps": [
+      {
+        "step_id": "step_start",
+        "step_name": "Your Path",
+        "routing": [
+          {
+            "source_field": "path",
+            "operator": "equals",
+            "compare_value": "a",
+            "target_step_id": "step_a"
+          },
+          {
+            "source_field": "path",
+            "operator": "equals",
+            "compare_value": "b",
+            "target_step_id": "step_b"
+          }
+        ],
+        "fields": [
+          {
+            "field_id": "path",
+            "field_type": "radio",
+            "label": "Which path applies to you?",
+            "required": true,
+            "options": [
+              { "value": "a", "label": "Path A — Individual" },
+              { "value": "b", "label": "Path B — Organisation" }
+            ],
+            "validation_rules": [],
+            "conditions": []
+          }
+        ]
+      },
+      {
+        "step_id": "step_a",
+        "step_name": "Individual Details",
+        "routing": [
+          {
+            "source_field": "path",
+            "operator": "equals",
+            "compare_value": "a",
+            "target_step_id": "step_review"
+          }
+        ],
+        "fields": [
+          {
+            "field_id": "ind_name",
+            "field_type": "text",
+            "label": "Full Name",
+            "placeholder": "Jane Smith",
+            "required": true,
+            "validation_rules": [
+              { "rule": "min_length", "value": "2", "message": "" }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "ind_email",
+            "field_type": "email",
+            "label": "Email",
+            "placeholder": "jane@example.com",
+            "required": true,
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "ind_dob",
+            "field_type": "date",
+            "label": "Date of Birth",
+            "required": true,
+            "validation_rules": [
+              { "rule": "age_over", "value": "16", "message": "Must be 16 or older." }
+            ],
+            "conditions": []
+          }
+        ]
+      },
+      {
+        "step_id": "step_b",
+        "step_name": "Organisation Details",
+        "routing": [
+          {
+            "source_field": "path",
+            "operator": "equals",
+            "compare_value": "b",
+            "target_step_id": "step_review"
+          }
+        ],
+        "fields": [
+          {
+            "field_id": "org_name",
+            "field_type": "text",
+            "label": "Organisation Name",
+            "placeholder": "Acme Inc.",
+            "required": true,
+            "validation_rules": [
+              { "rule": "min_length", "value": "3", "message": "" }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "org_abn",
+            "field_type": "text",
+            "label": "ABN / Registration Number",
+            "placeholder": "12 345 678 901",
+            "required": true,
+            "validation_rules": [
+              { "rule": "min_length", "value": "5", "message": "Please enter a valid registration number." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "org_size",
+            "field_type": "select",
+            "label": "Team Size",
+            "required": true,
+            "options": [
+              { "value": "",      "label": "Select team size" },
+              { "value": "1-10",  "label": "1–10 people" },
+              { "value": "11-50", "label": "11–50 people" },
+              { "value": "51+",   "label": "51+ people" }
+            ],
+            "validation_rules": [],
+            "conditions": []
+          }
+        ]
+      },
+      {
+        "step_id": "step_review",
+        "step_name": "Review & Submit",
+        "routing": [],
+        "fields": [
+          {
+            "field_id": "review_notice",
+            "field_type": "notice",
+            "label": "Review Notice",
+            "content": "Please review your details before submitting.",
+            "conditions": []
+          },
+          {
+            "field_id": "agree_terms",
+            "field_type": "checkbox",
+            "label": "Terms Agreement",
+            "required": true,
+            "options": [
+              { "value": "yes", "label": "I agree to the terms and conditions" }
+            ],
+            "validation_rules": [
+              { "rule": "min_checked", "value": "1", "message": "You must accept the terms." }
+            ],
+            "conditions": []
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "slug": "conditions-style",
+  "form_name": "[TEST] Conditions Style Actions",
+  "description": "[TEST] Seeded form — add_class, remove_class, set_style, set_label, set_placeholder, set_description",
+  "form_type": "standard",
+  "config": {
+    "form_name": "[TEST] Conditions Style Actions",
+    "form_type": "standard",
+    "settings": {},
+    "notifications": [],
+    "actions": [],
+    "steps": [
+      {
+        "step_id": "step_1",
+        "step_name": "Style Demo",
+        "routing": [],
+        "fields": [
+          {
+            "field_id": "plan_tier",
+            "field_type": "radio",
+            "label": "Plan Tier",
+            "required": true,
+            "options": [
+              { "value": "standard", "label": "Standard" },
+              { "value": "premium",  "label": "Premium" },
+              { "value": "enterprise", "label": "Enterprise" }
+            ],
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "plan_note",
+            "field_type": "notice",
+            "label": "Plan Note",
+            "content": "Your plan details will appear here.",
+            "conditions": []
+          },
+          {
+            "field_id": "extra_features",
+            "field_type": "text",
+            "label": "Additional Features",
+            "placeholder": "Describe what you need",
+            "required": false,
+            "validation_rules": [],
+            "conditions": [
+              {
+                "logic_group": "AND",
+                "source_field": "plan_tier",
+                "operator": "equals",
+                "compare_value": "premium",
+                "action": "add_class",
+                "action_value": "clefa-field-premium"
+              },
+              {
+                "logic_group": "AND",
+                "source_field": "plan_tier",
+                "operator": "equals",
+                "compare_value": "premium",
+                "action": "set_style",
+                "action_value": "background-color:#f3e5f5"
+              },
+              {
+                "logic_group": "AND",
+                "source_field": "plan_tier",
+                "operator": "equals",
+                "compare_value": "premium",
+                "action": "set_label",
+                "action_value": "Premium Features (describe your needs)"
+              },
+              {
+                "logic_group": "AND",
+                "source_field": "plan_tier",
+                "operator": "equals",
+                "compare_value": "premium",
+                "action": "set_placeholder",
+                "action_value": "e.g. Custom SSO, priority support, dedicated manager…"
+              }
+            ]
+          },
+          {
+            "field_id": "enterprise_contact",
+            "field_type": "text",
+            "label": "Enterprise Contact Name",
+            "placeholder": "Your account manager's name",
+            "required": false,
+            "validation_rules": [],
+            "conditions": [
+              {
+                "logic_group": "AND",
+                "source_field": "plan_tier",
+                "operator": "equals",
+                "compare_value": "enterprise",
+                "action": "show",
+                "action_value": ""
+              },
+              {
+                "logic_group": "STYLE",
+                "source_field": "plan_tier",
+                "operator": "equals",
+                "compare_value": "enterprise",
+                "action": "set_style",
+                "action_value": "border-left:4px solid #1565c0"
+              },
+              {
+                "logic_group": "STYLE",
+                "source_field": "plan_tier",
+                "operator": "equals",
+                "compare_value": "enterprise",
+                "action": "set_description",
+                "action_value": "Our enterprise team will be assigned to your account."
+              }
+            ]
+          },
+          {
+            "field_id": "billing_cycle",
+            "field_type": "radio",
+            "label": "Billing Cycle",
+            "required": true,
+            "options": [
+              { "value": "monthly",  "label": "Monthly" },
+              { "value": "annual",   "label": "Annual (save 20%)" }
+            ],
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "discount_code",
+            "field_type": "text",
+            "label": "Discount Code",
+            "placeholder": "Enter code if you have one",
+            "required": false,
+            "validation_rules": [],
+            "conditions": [
+              {
+                "logic_group": "AND",
+                "source_field": "billing_cycle",
+                "operator": "equals",
+                "compare_value": "annual",
+                "action": "set_label",
+                "action_value": "Annual Discount Code"
+              },
+              {
+                "logic_group": "AND",
+                "source_field": "billing_cycle",
+                "operator": "equals",
+                "compare_value": "annual",
+                "action": "set_placeholder",
+                "action_value": "e.g. ANNUAL20 for extra savings"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

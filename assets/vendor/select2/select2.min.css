@@ -1,0 +1,9 @@
+/*
+ * Select2 CSS vendor placeholder.
+ *
+ * Replace this file with the real select2.min.css from:
+ *   https://github.com/select2/select2/releases
+ *
+ * Or override via filter:
+ *   add_filter( 'clefa_select2_css_url', fn() => 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css' );
+ */

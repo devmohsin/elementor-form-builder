@@ -1,0 +1,81 @@
+{
+  "slug": "validation-file",
+  "form_name": "[TEST] Validation File Upload",
+  "description": "[TEST] Seeded form — file_type, max_file_size, max_files, single and multi-upload",
+  "form_type": "standard",
+  "config": {
+    "form_name": "[TEST] Validation File Upload",
+    "form_type": "standard",
+    "settings": { "store_submissions": true },
+    "notifications": [],
+    "actions": [
+      { "action_id": "a1", "action_type": "save_submission", "enabled": true, "config": {} }
+    ],
+    "steps": [
+      {
+        "step_id": "step_1",
+        "step_name": "Upload",
+        "routing": [],
+        "fields": [
+          {
+            "field_id": "full_name",
+            "field_type": "text",
+            "label": "Full Name",
+            "required": true,
+            "validation_rules": [
+              { "rule": "min_length", "value": "2", "message": "" }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "profile_photo",
+            "field_type": "file",
+            "label": "Profile Photo",
+            "required": true,
+            "validation_rules": [
+              { "rule": "file_type",     "value": "jpg,jpeg,png,webp", "message": "Profile photo must be a JPG, PNG, or WebP image." },
+              { "rule": "max_file_size", "value": "2048",              "message": "Profile photo must be under 2 MB." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "resume",
+            "field_type": "file",
+            "label": "Résumé / CV",
+            "required": true,
+            "validation_rules": [
+              { "rule": "file_type",     "value": "pdf,doc,docx", "message": "Please upload a PDF or Word document." },
+              { "rule": "max_file_size", "value": "5120",         "message": "Résumé must be under 5 MB." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "portfolio",
+            "field_type": "file",
+            "label": "Portfolio Files (up to 5)",
+            "required": false,
+            "multiple": true,
+            "validation_rules": [
+              { "rule": "file_type",     "value": "jpg,jpeg,png,gif,pdf,zip", "message": "Unsupported file type." },
+              { "rule": "max_file_size", "value": "10240",                    "message": "Each file must be under 10 MB." },
+              { "rule": "max_files",     "value": "5",                        "message": "You can upload up to 5 files." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "cover_letter",
+            "field_type": "textarea",
+            "label": "Cover Letter",
+            "placeholder": "Tell us why you'd be a great fit…",
+            "required": false,
+            "validation_rules": [
+              { "rule": "min_words", "value": "20",  "message": "Please write at least 20 words." },
+              { "rule": "max_words", "value": "300", "message": "Please keep to 300 words or fewer." }
+            ],
+            "conditions": []
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "slug": "registration-form",
+  "form_name": "[TEST] Registration Form",
+  "description": "[TEST] Seeded form — realistic registration: username, email, password+confirm, account type, conditional company, terms",
+  "form_type": "standard",
+  "config": {
+    "form_name": "[TEST] Registration Form",
+    "form_type": "standard",
+    "settings": { "store_submissions": true },
+    "notifications": [
+      {
+        "notification_id": "n1",
+        "label": "Welcome Email",
+        "enabled": true,
+        "to": "{email}",
+        "from_name": "Acme App",
+        "from_email": "no-reply@acme.example.com",
+        "reply_to": "",
+        "subject": "Welcome to Acme, {username}!",
+        "body": "Hi {username},\n\nThanks for registering. Your account type: {account_type}.\n\nAcme Team",
+        "conditions": []
+      },
+      {
+        "notification_id": "n2",
+        "label": "Business Welcome",
+        "enabled": true,
+        "to": "{email}",
+        "from_name": "Acme Business",
+        "from_email": "business@acme.example.com",
+        "reply_to": "",
+        "subject": "Your Acme Business account is ready",
+        "body": "Hi {username},\n\nYour business account ({company_name}) has been set up.\n\nAcme Team",
+        "conditions": [
+          {
+            "logic_group": "AND",
+            "source_field": "account_type",
+            "operator": "equals",
+            "compare_value": "business",
+            "action": "show",
+            "action_value": ""
+          }
+        ]
+      }
+    ],
+    "actions": [
+      { "action_id": "a1", "action_type": "save_submission", "enabled": true, "config": {} }
+    ],
+    "steps": [
+      {
+        "step_id": "step_1",
+        "step_name": "Create Account",
+        "routing": [],
+        "fields": [
+          {
+            "field_id": "username",
+            "field_type": "text",
+            "label": "Username",
+            "placeholder": "john_doe",
+            "required": true,
+            "validation_rules": [
+              { "rule": "min_length",   "value": "3",  "message": "Must be at least 3 characters." },
+              { "rule": "max_length",   "value": "20", "message": "Must be 20 characters or fewer." },
+              { "rule": "no_spaces",    "value": "",   "message": "Spaces are not allowed." },
+              { "rule": "alphanumeric", "value": "",   "message": "Letters, numbers and underscores only." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "email",
+            "field_type": "email",
+            "label": "Email Address",
+            "placeholder": "you@example.com",
+            "required": true,
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "password",
+            "field_type": "password",
+            "label": "Password",
+            "placeholder": "Minimum 8 characters",
+            "required": true,
+            "validation_rules": [
+              { "rule": "min_length",        "value": "8",      "message": "Password must be at least 8 characters." },
+              { "rule": "password_strength", "value": "medium", "message": "Password must include upper/lower case letters and a number." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "confirm_password",
+            "field_type": "password",
+            "label": "Confirm Password",
+            "placeholder": "Repeat your password",
+            "required": true,
+            "validation_rules": [
+              { "rule": "confirm_password", "value": "password", "message": "Passwords do not match." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "account_type",
+            "field_type": "radio",
+            "label": "Account Type",
+            "required": true,
+            "options": [
+              { "value": "personal",  "label": "Personal" },
+              { "value": "business",  "label": "Business" }
+            ],
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "company_name",
+            "field_type": "text",
+            "label": "Company Name",
+            "placeholder": "Acme Ltd",
+            "required": false,
+            "validation_rules": [
+              { "rule": "min_length", "value": "2", "message": "" }
+            ],
+            "conditions": [
+              {
+                "logic_group": "AND",
+                "source_field": "account_type",
+                "operator": "equals",
+                "compare_value": "business",
+                "action": "show",
+                "action_value": ""
+              },
+              {
+                "logic_group": "AND",
+                "source_field": "account_type",
+                "operator": "equals",
+                "compare_value": "business",
+                "action": "require",
+                "action_value": ""
+              }
+            ]
+          },
+          {
+            "field_id": "company_size",
+            "field_type": "select",
+            "label": "Company Size",
+            "required": false,
+            "options": [
+              { "value": "",      "label": "Select team size" },
+              { "value": "solo",  "label": "Just me" },
+              { "value": "small", "label": "2–10" },
+              { "value": "mid",   "label": "11–50" },
+              { "value": "large", "label": "51–200" },
+              { "value": "ent",   "label": "201+" }
+            ],
+            "validation_rules": [],
+            "conditions": [
+              {
+                "logic_group": "AND",
+                "source_field": "account_type",
+                "operator": "equals",
+                "compare_value": "business",
+                "action": "show",
+                "action_value": ""
+              }
+            ]
+          },
+          {
+            "field_id": "newsletter",
+            "field_type": "checkbox",
+            "label": "Communications",
+            "required": false,
+            "options": [
+              { "value": "yes", "label": "Send me product updates and news" }
+            ],
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "agree_terms",
+            "field_type": "checkbox",
+            "label": "Terms",
+            "required": true,
+            "options": [
+              { "value": "yes", "label": "I agree to the Terms of Service and Privacy Policy" }
+            ],
+            "validation_rules": [
+              { "rule": "min_checked", "value": "1", "message": "You must accept the terms to continue." }
+            ],
+            "conditions": []
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "slug": "validation-advanced",
+  "form_name": "[TEST] Validation Advanced",
+  "description": "[TEST] Seeded form — password strength, confirm_password, phone, URL, regex, alphanumeric, no_html",
+  "form_type": "standard",
+  "config": {
+    "form_name": "[TEST] Validation Advanced",
+    "form_type": "standard",
+    "settings": { "store_submissions": true },
+    "notifications": [],
+    "actions": [
+      { "action_id": "a1", "action_type": "save_submission", "enabled": true, "config": {} }
+    ],
+    "steps": [
+      {
+        "step_id": "step_1",
+        "step_name": "Account",
+        "routing": [],
+        "fields": [
+          {
+            "field_id": "username",
+            "field_type": "text",
+            "label": "Username",
+            "placeholder": "john_doe99",
+            "required": true,
+            "validation_rules": [
+              { "rule": "min_length",   "value": "3",  "message": "Username must be at least 3 characters." },
+              { "rule": "max_length",   "value": "30", "message": "Username too long." },
+              { "rule": "no_spaces",    "value": "",   "message": "Username cannot contain spaces." },
+              { "rule": "alphanumeric", "value": "",   "message": "Username may only contain letters, numbers, and underscores." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "email",
+            "field_type": "email",
+            "label": "Email Address",
+            "placeholder": "you@example.com",
+            "required": true,
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "phone",
+            "field_type": "text",
+            "label": "Phone Number",
+            "placeholder": "+61 400 000 000",
+            "required": false,
+            "validation_rules": [
+              { "rule": "phone", "value": "", "message": "Please enter a valid phone number." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "website",
+            "field_type": "text",
+            "label": "Personal Website",
+            "placeholder": "https://yoursite.com",
+            "required": false,
+            "validation_rules": [
+              { "rule": "url", "value": "", "message": "Must be a valid URL starting with https://." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "promo_code",
+            "field_type": "text",
+            "label": "Promo Code (format: ALPHA-0000)",
+            "placeholder": "SAVE-1234",
+            "required": false,
+            "validation_rules": [
+              { "rule": "regex", "value": "^[A-Z]{3,6}-[0-9]{4}$", "message": "Code must match format WORD-1234 (e.g. SAVE-1234)." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "bio",
+            "field_type": "textarea",
+            "label": "Bio (no HTML allowed)",
+            "placeholder": "A bit about yourself…",
+            "required": false,
+            "validation_rules": [
+              { "rule": "no_html",   "value": "",   "message": "HTML tags are not permitted." },
+              { "rule": "no_urls",   "value": "",   "message": "Please do not include URLs in your bio." },
+              { "rule": "max_words", "value": "200","message": "Bio must be 200 words or fewer." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "password",
+            "field_type": "password",
+            "label": "Password",
+            "placeholder": "Min 8 chars, mixed case + number",
+            "required": true,
+            "validation_rules": [
+              { "rule": "min_length",       "value": "8",      "message": "Password must be at least 8 characters." },
+              { "rule": "password_strength","value": "medium", "message": "Password must contain upper, lower and a number." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "confirm_password",
+            "field_type": "password",
+            "label": "Confirm Password",
+            "placeholder": "Repeat your password",
+            "required": true,
+            "validation_rules": [
+              {
+                "rule": "confirm_password",
+                "value": "password",
+                "message": "Passwords do not match."
+              }
+            ],
+            "conditions": []
+          }
+        ]
+      }
+    ]
+  }
+}

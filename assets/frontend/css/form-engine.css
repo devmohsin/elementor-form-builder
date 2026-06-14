@@ -1,0 +1,1406 @@
+/* =============================================
+   CodeLinden Form Addon — Frontend Form CSS
+   Inherited mode: minimal styles only.
+   Data attributes used for all state hooks.
+   No !important declarations.
+   ============================================= */
+
+/* ---- Variables ---- */
+.clefa-form-wrap {
+	--clefa-primary:      #4f46e5;
+	--clefa-primary-h:    #4338ca;
+	--clefa-border:       #e2e8f0;
+	--clefa-input-bg:     #ffffff;
+	--clefa-text:         #1e293b;
+	--clefa-text-muted:   #64748b;
+	--clefa-error:        #dc2626;
+	--clefa-success:      #059669;
+	--clefa-warning:      #d97706;
+	--clefa-info:         #0284c7;
+	--clefa-radius:       6px;
+	--clefa-radius-lg:    10px;
+	--clefa-transition:   180ms ease;
+	--clefa-shadow-sm:    0 1px 3px rgba(0,0,0,.08);
+	position: relative;
+	font-family: inherit;
+	color: var(--clefa-text);
+	background: var(--clefa-bg, transparent);
+}
+
+/* ---- Layout ---- */
+.clefa-form {
+	width: 100%;
+}
+
+[data-clefa-field] {
+	margin-bottom: 1.25rem;
+}
+
+[data-clefa-step] {
+	display: block;
+}
+
+[data-clefa-step-active="0"] {
+	display: none;
+}
+
+/* ---- Labels ---- */
+.clefa-field-label {
+	display: block;
+	font-weight: 600;
+	font-size: 0.9375rem;
+	margin-bottom: 0.375rem;
+	color: var(--clefa-text);
+}
+
+.clefa-required {
+	color: var(--clefa-error);
+	margin-left: 3px;
+}
+
+.clefa-field-desc {
+	font-size: 0.8125rem;
+	color: var(--clefa-text-muted);
+	margin: 0.25rem 0 0;
+}
+
+/* ---- Inputs ---- */
+.clefa-input,
+.clefa-textarea,
+.clefa-select {
+	display: block;
+	width: 100%;
+	padding: var(--clefa-input-padding, 0.5rem 0.75rem);
+	font-size: 0.9375rem;
+	font-family: inherit;
+	color: var(--clefa-text);
+	background-color: var(--clefa-input-bg);
+	border: 1.5px solid var(--clefa-border);
+	border-radius: var(--clefa-radius);
+	box-sizing: border-box;
+	transition: border-color var(--clefa-transition), box-shadow var(--clefa-transition);
+	outline: none;
+	box-shadow: var(--clefa-shadow-sm, none);
+}
+
+.clefa-input:focus,
+.clefa-textarea:focus,
+.clefa-select:focus {
+	border-color: var(--clefa-primary);
+	box-shadow: 0 0 0 3px rgba(79,70,229,.15);
+}
+
+.clefa-input-error,
+.clefa-textarea.clefa-input-error,
+.clefa-select.clefa-input-error {
+	border-color: var(--clefa-error);
+	box-shadow: 0 0 0 3px rgba(220,38,38,.12);
+}
+
+.clefa-textarea {
+	min-height: 100px;
+	resize: vertical;
+}
+
+.clefa-input-number {
+	max-width: 200px;
+}
+
+/* ---- Error Messages ---- */
+.clefa-field-error {
+	font-size: 0.8125rem;
+	color: var(--clefa-error);
+	margin-top: 0.25rem;
+	display: none;
+}
+
+/* ---- Character Counter ---- */
+.clefa-char-count {
+	font-size: 0.75rem;
+	color: var(--clefa-text-muted);
+	text-align: right;
+	margin-top: 4px;
+}
+
+/* ---- Password Toggle ---- */
+.clefa-password-wrap {
+	position: relative;
+	display: flex;
+	align-items: stretch;
+}
+
+.clefa-password-wrap .clefa-input {
+	flex: 1;
+	border-radius: var(--clefa-radius) 0 0 var(--clefa-radius);
+}
+
+.clefa-password-toggle {
+	display: flex;
+	align-items: center;
+	padding: 0 0.75rem;
+	background: var(--clefa-input-bg);
+	border: 1.5px solid var(--clefa-border);
+	border-left: none;
+	border-radius: 0 var(--clefa-radius) var(--clefa-radius) 0;
+	cursor: pointer;
+	font-size: 0.8125rem;
+	color: var(--clefa-text-muted);
+	transition: color var(--clefa-transition);
+	white-space: nowrap;
+}
+
+.clefa-password-toggle:hover {
+	color: var(--clefa-primary);
+}
+
+/* ---- Select ---- */
+.clefa-select {
+	appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 0.625rem center;
+	background-size: 16px;
+	padding-right: 2.25rem;
+	cursor: pointer;
+}
+
+/* ---- Checkbox & Radio ---- */
+.clefa-checkbox-group,
+.clefa-radio-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.clefa-checkbox-group-inline,
+.clefa-radio-group-inline {
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 0.5rem 1rem;
+}
+
+.clefa-checkbox-label,
+.clefa-radio-label {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: pointer;
+	font-size: 0.9375rem;
+}
+
+.clefa-checkbox,
+.clefa-radio {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+	width: 0;
+	height: 0;
+}
+
+.clefa-checkbox-indicator,
+.clefa-radio-indicator {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	flex-shrink: 0;
+	border: 2px solid var(--clefa-border);
+	border-radius: 4px;
+	background: var(--clefa-input-bg);
+	transition: border-color var(--clefa-transition), background var(--clefa-transition);
+}
+
+.clefa-radio-indicator {
+	border-radius: 50%;
+}
+
+.clefa-checkbox:checked ~ .clefa-checkbox-indicator {
+	background: var(--clefa-primary);
+	border-color: var(--clefa-primary);
+}
+
+.clefa-checkbox:checked ~ .clefa-checkbox-indicator::after {
+	content: '';
+	display: block;
+	width: 10px;
+	height: 6px;
+	border-left: 2.5px solid #fff;
+	border-bottom: 2.5px solid #fff;
+	transform: rotate(-45deg) translateY(-1px);
+}
+
+.clefa-radio:checked ~ .clefa-radio-indicator {
+	border-color: var(--clefa-primary);
+}
+
+.clefa-radio:checked ~ .clefa-radio-indicator::after {
+	content: '';
+	display: block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--clefa-primary);
+}
+
+.clefa-checkbox-label:hover .clefa-checkbox-indicator,
+.clefa-radio-label:hover .clefa-radio-indicator {
+	border-color: var(--clefa-primary);
+}
+
+.clefa-checkbox:focus-visible ~ .clefa-checkbox-indicator,
+.clefa-radio:focus-visible ~ .clefa-radio-indicator {
+	box-shadow: 0 0 0 3px rgba(79,70,229,.2);
+}
+
+/* ---- Range Slider ---- */
+.clefa-range-wrap {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.clefa-range {
+	flex: 1;
+	height: 4px;
+	border-radius: 2px;
+	appearance: none;
+	background: var(--clefa-border);
+	outline: none;
+	cursor: pointer;
+}
+
+.clefa-range::-webkit-slider-thumb {
+	appearance: none;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: var(--clefa-primary);
+	border: none;
+	cursor: grab;
+	box-shadow: var(--clefa-shadow-sm);
+}
+
+.clefa-range::-moz-range-thumb {
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: var(--clefa-primary);
+	border: none;
+	cursor: grab;
+}
+
+.clefa-range-value {
+	min-width: 2.5rem;
+	text-align: center;
+	font-weight: 600;
+	font-size: 0.9375rem;
+	color: var(--clefa-primary);
+}
+
+/* ---- Dual Range Slider ---- */
+.clefa-range-dual {
+	position: relative;
+	padding-bottom: 1.75rem;
+}
+
+.clefa-range-dual-track {
+	position: relative;
+	height: 6px;
+	border-radius: 3px;
+	background: var(--clefa-border);
+	margin: 0.75rem 0;
+}
+
+.clefa-range-dual-fill {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	background: var(--clefa-primary);
+	border-radius: 3px;
+	pointer-events: none;
+}
+
+.clefa-range-dual-input {
+	-webkit-appearance: none;
+	appearance: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 6px;
+	background: transparent;
+	pointer-events: none;
+	margin: 0;
+	padding: 0;
+	transform: translateY(calc(0.75rem));
+}
+
+.clefa-range-dual-input::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: #fff;
+	border: 2px solid var(--clefa-primary);
+	box-shadow: 0 1px 4px rgba(0,0,0,.15);
+	cursor: pointer;
+	pointer-events: all;
+}
+
+.clefa-range-dual-input::-moz-range-thumb {
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: #fff;
+	border: 2px solid var(--clefa-primary);
+	box-shadow: 0 1px 4px rgba(0,0,0,.15);
+	cursor: pointer;
+	pointer-events: all;
+}
+
+.clefa-range-dual-labels {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.875rem;
+	color: var(--clefa-text);
+	margin-top: 0.25rem;
+}
+
+.clefa-range-dual-label-min,
+.clefa-range-dual-label-max {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	font-weight: 600;
+}
+
+.clefa-range-dual-sep { color: var(--clefa-text-muted); }
+.clefa-range-prefix,
+.clefa-range-suffix { color: var(--clefa-text-muted); font-weight: 400; }
+
+/* ---- Repeater ---- */
+.clefa-repeater {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.clefa-repeater-rows {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.clefa-repeater-row {
+	position: relative;
+	padding: 1rem;
+	border: 1px solid var(--clefa-border, #e2e8f0);
+	border-radius: var(--clefa-radius, 6px);
+	background: var(--clefa-bg, #fff);
+}
+
+.clefa-repeater-row-fields.clefa-repeater-layout-inline {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem 1rem;
+	align-items: flex-end;
+}
+
+.clefa-repeater-row-fields.clefa-repeater-layout-inline .clefa-repeater-sub-field {
+	flex: 1 1 160px;
+}
+
+.clefa-repeater-row-fields.clefa-repeater-layout-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.clefa-repeater-remove-row {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	padding: 0.2rem 0.5rem;
+	font-size: 0.8125rem;
+	color: var(--clefa-danger, #ef4444);
+	border-color: transparent;
+	background: transparent;
+	cursor: pointer;
+}
+
+.clefa-repeater-remove-row:hover {
+	background: rgba(239, 68, 68, 0.08);
+}
+
+.clefa-repeater-footer {
+	margin-top: 0.25rem;
+}
+
+/* ---- File Upload ---- */
+.clefa-file-upload-wrap {
+	position: relative;
+}
+
+.clefa-input-file {
+	position: absolute;
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	z-index: -1;
+}
+
+.clefa-file-drop-zone {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 1.5rem 1rem;
+	border: 2px dashed var(--clefa-border);
+	border-radius: var(--clefa-radius-lg);
+	background: #f8fafc;
+	cursor: pointer;
+	text-align: center;
+	transition: border-color var(--clefa-transition), background var(--clefa-transition);
+}
+
+.clefa-file-drop-zone:hover,
+[data-clefa-dragover] .clefa-file-drop-zone,
+.clefa-file-drop-zone[data-clefa-dragover] {
+	border-color: var(--clefa-primary);
+	background: rgba(79,70,229,.04);
+}
+
+.clefa-file-drop-icon {
+	font-size: 1.75rem;
+	color: var(--clefa-text-muted);
+}
+
+.clefa-file-drop-text {
+	font-size: 0.875rem;
+	color: var(--clefa-text-muted);
+}
+
+.clefa-file-click {
+	color: var(--clefa-primary);
+	font-weight: 600;
+	text-decoration: underline;
+}
+
+.clefa-file-list {
+	list-style: none;
+	margin: 0.75rem 0 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.clefa-file-item {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.5rem 0.75rem;
+	background: #f8fafc;
+	border: 1px solid var(--clefa-border);
+	border-radius: var(--clefa-radius);
+}
+
+.clefa-file-item-error {
+	border-color: var(--clefa-error);
+	background: #fff5f5;
+}
+
+.clefa-file-thumb-wrap {
+	width: 40px;
+	height: 40px;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--clefa-border);
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.clefa-file-thumb {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.clefa-file-ext {
+	font-size: 0.625rem;
+	font-weight: 700;
+	color: var(--clefa-text-muted);
+	text-transform: uppercase;
+}
+
+.clefa-file-info {
+	flex: 1;
+	min-width: 0;
+}
+
+.clefa-file-name {
+	display: block;
+	font-size: 0.875rem;
+	font-weight: 500;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.clefa-file-size {
+	font-size: 0.75rem;
+	color: var(--clefa-text-muted);
+}
+
+.clefa-file-error-msg {
+	display: block;
+	font-size: 0.75rem;
+	color: var(--clefa-error);
+	margin-top: 2px;
+}
+
+.clefa-upload-progress {
+	height: 3px;
+	background: var(--clefa-border);
+	border-radius: 2px;
+	margin-top: 6px;
+	overflow: hidden;
+}
+
+.clefa-upload-bar {
+	height: 100%;
+	background: var(--clefa-primary);
+	border-radius: 2px;
+	transition: width 200ms ease;
+}
+
+.clefa-file-remove {
+	background: none;
+	border: none;
+	color: var(--clefa-text-muted);
+	cursor: pointer;
+	font-size: 1.125rem;
+	line-height: 1;
+	padding: 4px;
+	border-radius: 4px;
+	transition: color var(--clefa-transition), background var(--clefa-transition);
+	flex-shrink: 0;
+}
+
+.clefa-file-remove:hover {
+	color: var(--clefa-error);
+	background: rgba(220,38,38,.08);
+}
+
+/* ---- Notice Blocks ---- */
+.clefa-notice {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.625rem;
+	padding: 0.75rem 1rem;
+	border-radius: var(--clefa-radius);
+	font-size: 0.9375rem;
+	border-left: 4px solid transparent;
+}
+
+.clefa-notice-icon {
+	font-size: 1rem;
+	flex-shrink: 0;
+	line-height: 1.5;
+}
+
+.clefa-notice-body {
+	flex: 1;
+	line-height: 1.5;
+}
+
+.clefa-notice-dismiss {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 1.125rem;
+	line-height: 1;
+	padding: 0.125rem 0.25rem;
+	color: inherit;
+	opacity: 0.6;
+	flex-shrink: 0;
+}
+.clefa-notice-dismiss:hover {
+	opacity: 1;
+}
+
+.clefa-notice-info {
+	background: #e0f2fe;
+	border-left-color: var(--clefa-info);
+	color: #0c4a6e;
+}
+
+.clefa-notice-success {
+	background: #d1fae5;
+	border-left-color: var(--clefa-success);
+	color: #064e3b;
+}
+
+.clefa-notice-warning {
+	background: #fef3c7;
+	border-left-color: var(--clefa-warning);
+	color: #78350f;
+}
+
+.clefa-notice-error {
+	background: #fee2e2;
+	border-left-color: var(--clefa-error);
+	color: #7f1d1d;
+}
+
+/* ---- HTML Block ---- */
+.clefa-html-block {
+	line-height: 1.6;
+}
+
+/* ---- Progress Bar ---- */
+.clefa-progress {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin-bottom: 1.5rem;
+}
+
+.clefa-progress-bar-wrap {
+	flex: 1;
+	height: 6px;
+	background: var(--clefa-border);
+	border-radius: 3px;
+	overflow: hidden;
+}
+
+.clefa-progress-bar {
+	height: 100%;
+	background: var(--clefa-primary);
+	border-radius: 3px;
+	transition: width 300ms ease;
+}
+
+.clefa-step-count {
+	font-size: 0.8125rem;
+	color: var(--clefa-text-muted);
+	white-space: nowrap;
+}
+
+/* ---- Step Buttons ---- */
+.clefa-step-buttons {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin-top: 1.5rem;
+	flex-wrap: wrap;
+}
+
+/* ---- Buttons ---- */
+.clefa-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.375rem;
+	padding: 0.5rem 1.25rem;
+	font-size: 0.9375rem;
+	font-weight: 600;
+	font-family: inherit;
+	border-radius: var(--clefa-radius);
+	border: 1.5px solid transparent;
+	cursor: pointer;
+	text-decoration: none;
+	transition: background var(--clefa-transition), border-color var(--clefa-transition), color var(--clefa-transition), box-shadow var(--clefa-transition);
+	line-height: 1.4;
+	white-space: nowrap;
+}
+
+.clefa-btn-primary {
+	background: var(--clefa-primary);
+	color: #ffffff;
+	border-color: var(--clefa-primary);
+}
+
+.clefa-btn-primary:hover {
+	background: var(--clefa-primary-h);
+	border-color: var(--clefa-primary-h);
+}
+
+.clefa-btn-primary:disabled,
+[data-clefa-submit]:disabled,
+[data-clefa-next]:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.clefa-btn-secondary {
+	background: transparent;
+	color: var(--clefa-text);
+	border-color: var(--clefa-border);
+}
+
+.clefa-btn-secondary:hover {
+	border-color: var(--clefa-text-muted);
+}
+
+/* ---- Form Message ---- */
+.clefa-form-message {
+	padding: 0.875rem 1rem;
+	border-radius: var(--clefa-radius);
+	font-size: 0.9375rem;
+	margin-top: 1rem;
+}
+
+[data-clefa-message-type="success"] {
+	background: #d1fae5;
+	color: #064e3b;
+	border: 1px solid #6ee7b7;
+}
+
+[data-clefa-message-type="error"] {
+	background: #fee2e2;
+	color: #7f1d1d;
+	border: 1px solid #fca5a5;
+}
+
+/* ---- Success state ---- */
+[data-clefa-state="success"] .clefa-form {
+	display: none;
+}
+
+/* ---- Submitting state ---- */
+[data-clefa-state="submitting"] .clefa-btn-submit::after {
+	content: '';
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	border: 2px solid rgba(255,255,255,.4);
+	border-top-color: #fff;
+	border-radius: 50%;
+	animation: clefa-spin 600ms linear infinite;
+	margin-left: 0.5rem;
+}
+
+@keyframes clefa-spin {
+	to { transform: rotate(360deg); }
+}
+
+/* ---- Grid / Column Break ---- */
+.clefa-grid-wrap {
+	display: grid;
+	grid-template-columns: repeat( var(--clefa-grid-cols, 2), 1fr );
+	gap: var(--clefa-grid-gap, 16px);
+	align-items: start;
+}
+
+[data-clefa-grid][data-clefa-grid-cols="1"]  { --clefa-grid-cols: 1; }
+[data-clefa-grid][data-clefa-grid-cols="2"]  { --clefa-grid-cols: 2; }
+[data-clefa-grid][data-clefa-grid-cols="3"]  { --clefa-grid-cols: 3; }
+[data-clefa-grid][data-clefa-grid-cols="4"]  { --clefa-grid-cols: 4; }
+[data-clefa-grid][data-clefa-grid-cols="5"]  { --clefa-grid-cols: 5; }
+[data-clefa-grid][data-clefa-grid-cols="6"]  { --clefa-grid-cols: 6; }
+
+@media (max-width: 600px) {
+	.clefa-grid-wrap { grid-template-columns: 1fr; }
+}
+
+/* ---- Live Check ---- */
+[data-clefa-live-msg] {
+	display: block;
+	font-size: var(--clefa-font-sm);
+	margin-top: 4px;
+	line-height: 1.4;
+}
+
+[data-clefa-live-status="checking"] [data-clefa-live-msg] {
+	color: var(--clefa-text-muted);
+}
+
+[data-clefa-live-status="checking"] [data-clefa-live-msg]::before {
+	content: "";
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border: 2px solid currentColor;
+	border-top-color: transparent;
+	border-radius: 50%;
+	animation: clefa-spin 0.6s linear infinite;
+	margin-right: 5px;
+	vertical-align: middle;
+}
+
+[data-clefa-live-status="available"] [data-clefa-live-msg] {
+	color: #16a34a;
+}
+
+[data-clefa-live-status="unavailable"] [data-clefa-live-msg] {
+	color: var(--clefa-danger);
+}
+
+[data-clefa-live-status="unavailable"] .clefa-input {
+	border-color: var(--clefa-danger);
+}
+
+/* ---- Honeypot ---- */
+.clefa-hp {
+	position: absolute;
+	left: -9999px;
+	opacity: 0;
+	height: 0;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+/* ---- Accessibility ---- */
+.clefa-form :focus-visible {
+	outline: 2px solid var(--clefa-primary);
+	outline-offset: 2px;
+}
+
+/* Button conditions: disabled-until-valid */
+.clefa-btn:disabled,
+.clefa-btn[aria-disabled="true"] {
+	opacity: 0.45;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+/* Above-submit notice */
+.clefa-notice-above-submit {
+	margin-bottom: 0.75rem;
+	padding: 0.6rem 0.9rem;
+	border-radius: var(--clefa-radius, 6px);
+	background: var(--clefa-notice-bg, #f0f9ff);
+	color: var(--clefa-notice-color, #0369a1);
+	border-left: 3px solid var(--clefa-notice-border, #38bdf8);
+	font-size: 0.85rem;
+}
+
+/* =====================================================================
+   Field Wrapper (field-wrapper.php)
+   ===================================================================== */
+
+.clefa-field-wrap {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	margin-bottom: 1.25rem;
+}
+
+.clefa-field-wrap[data-clefa-visible="0"] {
+	display: none;
+}
+
+/* Transition mode — GPU-friendly opacity/size instead of display toggle */
+.clefa-form-wrap[data-clefa-transitions="1"] .clefa-field-wrap {
+	overflow: hidden;
+	transition:
+		opacity var(--clefa-transition),
+		max-height 220ms ease,
+		margin-bottom var(--clefa-transition),
+		padding-top var(--clefa-transition),
+		padding-bottom var(--clefa-transition);
+	max-height: 800px;
+	opacity: 1;
+	margin-bottom: 1.25rem;
+}
+
+.clefa-form-wrap[data-clefa-transitions="1"] .clefa-field-wrap.clefa-field-hidden,
+.clefa-form-wrap[data-clefa-transitions="1"] .clefa-field-wrap[data-clefa-visible="0"] {
+	display: flex;
+	max-height: 0;
+	opacity: 0;
+	margin-bottom: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	pointer-events: none;
+}
+
+.clefa-form-wrap[data-clefa-transitions="1"] .clefa-step {
+	transition: opacity var(--clefa-transition), max-height 260ms ease;
+	max-height: 4000px;
+	opacity: 1;
+	overflow: hidden;
+}
+
+.clefa-form-wrap[data-clefa-transitions="1"] .clefa-step.clefa-step-hidden,
+.clefa-form-wrap[data-clefa-transitions="1"] .clefa-step[data-clefa-step-active="0"] {
+	display: block;
+	max-height: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.clefa-form-wrap[data-clefa-transitions="1"] .clefa-field-wrap,
+	.clefa-form-wrap[data-clefa-transitions="1"] .clefa-step {
+		transition: none;
+	}
+}
+
+.clefa-label {
+	font-size: var(--clefa-label-size, 0.875rem);
+	font-weight: var(--clefa-label-weight, 500);
+	color: var(--clefa-label-color, #374151);
+}
+
+.clefa-required {
+	color: var(--clefa-danger, #dc2626);
+	margin-left: 0.2em;
+}
+
+.clefa-input-wrap {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.clefa-field-help {
+	font-size: 0.8rem;
+	color: var(--clefa-muted, #6b7280);
+	margin: 0;
+	line-height: 1.4;
+}
+
+.clefa-error-msg {
+	display: none;
+	font-size: 0.8rem;
+	color: var(--clefa-danger, #dc2626);
+	margin: 0;
+}
+
+.clefa-error-msg.clefa-error-visible {
+	display: block;
+}
+
+.clefa-field-notice {
+	padding: 0.5rem 0.75rem;
+	border-radius: var(--clefa-radius, 6px);
+	font-size: 0.85rem;
+	line-height: 1.4;
+	background: var(--clefa-notice-bg, #f0f9ff);
+	color: var(--clefa-notice-color, #0369a1);
+	border-left: 3px solid var(--clefa-notice-border, #38bdf8);
+}
+
+.clefa-field-notice-before {
+	margin-bottom: 0.35rem;
+}
+
+.clefa-field-notice-after {
+	margin-top: 0.35rem;
+}
+
+/* Live-check spinner inside input-wrap */
+.clefa-live-check-spinner {
+	display: none;
+	width: 14px;
+	height: 14px;
+	border: 2px solid var(--clefa-border, #e2e8f0);
+	border-top-color: var(--clefa-primary, #3b82f6);
+	border-radius: 50%;
+	position: absolute;
+	right: 0.65rem;
+	top: 50%;
+	transform: translateY(-50%);
+	animation: clefa-spin 0.7s linear infinite;
+}
+
+[data-clefa-live-checking="1"] .clefa-live-check-spinner {
+	display: block;
+}
+
+.clefa-live-check-status {
+	font-size: 0.78rem;
+	color: var(--clefa-muted, #6b7280);
+}
+
+/* =============================================
+   Button: pending state (always-validate mode)
+   Button is visually greyed when required fields
+   are not yet filled, but remains clickable.
+   ============================================= */
+
+.clefa-btn[data-clefa-btn-state="pending"] {
+	opacity: 0.55;
+	filter: grayscale(25%);
+	cursor: pointer;
+}
+
+/* Shake animation when the user clicks Next with invalid fields */
+@keyframes clefa-btn-shake {
+	0%, 100% { transform: translateX(0); }
+	15%       { transform: translateX(-6px); }
+	30%       { transform: translateX(5px); }
+	45%       { transform: translateX(-4px); }
+	60%       { transform: translateX(3px); }
+	75%       { transform: translateX(-2px); }
+}
+
+.clefa-btn-shake {
+	animation: clefa-btn-shake 0.4s ease-in-out;
+}
+
+/* =============================================
+   Form Themes
+   Applied via data-clefa-theme on .clefa-form-wrap
+   ============================================= */
+
+/* --- Minimal: bottom-border inputs only --- */
+.clefa-form-wrap[data-clefa-theme="minimal"] .clefa-input,
+.clefa-form-wrap[data-clefa-theme="minimal"] .clefa-textarea,
+.clefa-form-wrap[data-clefa-theme="minimal"] .clefa-select {
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-radius: 0;
+	padding-left: 0;
+	padding-right: 0;
+	background: transparent;
+	box-shadow: none;
+}
+
+.clefa-form-wrap[data-clefa-theme="minimal"] .clefa-input:focus,
+.clefa-form-wrap[data-clefa-theme="minimal"] .clefa-textarea:focus,
+.clefa-form-wrap[data-clefa-theme="minimal"] .clefa-select:focus {
+	box-shadow: none;
+	border-color: var(--clefa-primary);
+}
+
+.clefa-form-wrap[data-clefa-theme="minimal"] .clefa-label {
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	font-weight: 600;
+}
+
+/* --- Card: each field gets a card-like lifted box --- */
+.clefa-form-wrap[data-clefa-theme="card"] [data-clefa-field] {
+	background: #fff;
+	border: 1px solid var(--clefa-border);
+	border-radius: var(--clefa-radius-lg);
+	padding: 1rem 1.25rem;
+	box-shadow: var(--clefa-shadow-sm);
+}
+
+.clefa-form-wrap[data-clefa-theme="card"] .clefa-input,
+.clefa-form-wrap[data-clefa-theme="card"] .clefa-textarea,
+.clefa-form-wrap[data-clefa-theme="card"] .clefa-select {
+	background: #f8fafc;
+}
+
+/* --- Rounded: larger radius, softer feel --- */
+.clefa-form-wrap[data-clefa-theme="rounded"] {
+	--clefa-radius:    12px;
+	--clefa-radius-lg: 16px;
+}
+
+.clefa-form-wrap[data-clefa-theme="rounded"] .clefa-input,
+.clefa-form-wrap[data-clefa-theme="rounded"] .clefa-textarea,
+.clefa-form-wrap[data-clefa-theme="rounded"] .clefa-select {
+	padding: 0.6rem 1rem;
+}
+
+.clefa-form-wrap[data-clefa-theme="rounded"] .clefa-btn {
+	border-radius: 9999px;
+	padding-left: 1.75rem;
+	padding-right: 1.75rem;
+}
+
+/* --- Dark: dark background form --- */
+.clefa-form-wrap[data-clefa-theme="dark"] {
+	--clefa-text:      #f1f5f9;
+	--clefa-text-muted:#94a3b8;
+	--clefa-border:    #334155;
+	--clefa-input-bg:  #1e293b;
+	background: #0f172a;
+	color: var(--clefa-text);
+	border-radius: var(--clefa-radius-lg);
+	padding: 1.5rem;
+}
+
+.clefa-form-wrap[data-clefa-theme="dark"] .clefa-input,
+.clefa-form-wrap[data-clefa-theme="dark"] .clefa-textarea,
+.clefa-form-wrap[data-clefa-theme="dark"] .clefa-select {
+	background: var(--clefa-input-bg);
+	color: var(--clefa-text);
+	border-color: var(--clefa-border);
+}
+
+.clefa-form-wrap[data-clefa-theme="dark"] .clefa-input:focus,
+.clefa-form-wrap[data-clefa-theme="dark"] .clefa-textarea:focus,
+.clefa-form-wrap[data-clefa-theme="dark"] .clefa-select:focus {
+	border-color: var(--clefa-primary);
+	box-shadow: 0 0 0 3px rgba(79,70,229,.3);
+}
+
+.clefa-form-wrap[data-clefa-theme="dark"] .clefa-label {
+	color: var(--clefa-text);
+}
+
+.clefa-form-wrap[data-clefa-theme="dark"] .clefa-progress-bar-wrap {
+	background: #1e293b;
+}
+
+.clefa-form-wrap[data-clefa-theme="dark"] .clefa-step-count {
+	color: var(--clefa-text-muted);
+}
+
+/* --- Glass: frosted glassmorphism --- */
+.clefa-form-wrap[data-clefa-theme="glass"] {
+	background: rgba(255,255,255,0.15);
+	backdrop-filter: blur(16px) saturate(180%);
+	-webkit-backdrop-filter: blur(16px) saturate(180%);
+	border: 1px solid rgba(255,255,255,0.3);
+	border-radius: var(--clefa-radius-lg);
+	padding: 1.5rem;
+	--clefa-border: rgba(255,255,255,0.35);
+	--clefa-input-bg: rgba(255,255,255,0.2);
+	--clefa-text: #0f172a;
+}
+
+.clefa-form-wrap[data-clefa-theme="glass"] .clefa-input,
+.clefa-form-wrap[data-clefa-theme="glass"] .clefa-textarea,
+.clefa-form-wrap[data-clefa-theme="glass"] .clefa-select {
+	background: var(--clefa-input-bg);
+	border-color: rgba(255,255,255,0.4);
+	backdrop-filter: blur(8px);
+	color: var(--clefa-text);
+}
+
+.clefa-form-wrap[data-clefa-theme="glass"] .clefa-input:focus,
+.clefa-form-wrap[data-clefa-theme="glass"] .clefa-textarea:focus,
+.clefa-form-wrap[data-clefa-theme="glass"] .clefa-select:focus {
+	border-color: var(--clefa-primary);
+	background: rgba(255,255,255,0.35);
+	box-shadow: 0 0 0 3px rgba(79,70,229,.2);
+}
+
+/* --- Flat: material-inspired flat design --- */
+.clefa-form-wrap[data-clefa-theme="flat"] {
+	--clefa-border: transparent;
+	--clefa-input-bg: #f1f5f9;
+	--clefa-radius: 4px;
+	background: #f8fafc;
+	padding: 1.25rem;
+}
+
+.clefa-form-wrap[data-clefa-theme="flat"] .clefa-input,
+.clefa-form-wrap[data-clefa-theme="flat"] .clefa-textarea,
+.clefa-form-wrap[data-clefa-theme="flat"] .clefa-select {
+	background: var(--clefa-input-bg);
+	border: none;
+	border-bottom: 2px solid #cbd5e1;
+	border-radius: 0;
+	padding-left: 0;
+	box-shadow: none;
+	transition: border-color 0.2s;
+}
+
+.clefa-form-wrap[data-clefa-theme="flat"] .clefa-input:focus,
+.clefa-form-wrap[data-clefa-theme="flat"] .clefa-textarea:focus,
+.clefa-form-wrap[data-clefa-theme="flat"] .clefa-select:focus {
+	border-bottom-color: var(--clefa-primary);
+	background: #e0e7ff;
+	box-shadow: none;
+}
+
+.clefa-form-wrap[data-clefa-theme="flat"] .clefa-btn {
+	border-radius: 4px;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-size: 0.8125rem;
+	font-weight: 700;
+}
+
+/* --- Soft: pastel, ultra-gentle --- */
+.clefa-form-wrap[data-clefa-theme="soft"] {
+	--clefa-primary:    #7c3aed;
+	--clefa-border:     #ddd6fe;
+	--clefa-input-bg:   #faf5ff;
+	--clefa-radius:     10px;
+	--clefa-radius-lg:  16px;
+	background: #fdf4ff;
+	padding: 1.25rem;
+}
+
+.clefa-form-wrap[data-clefa-theme="soft"] .clefa-input,
+.clefa-form-wrap[data-clefa-theme="soft"] .clefa-textarea,
+.clefa-form-wrap[data-clefa-theme="soft"] .clefa-select {
+	background: var(--clefa-input-bg);
+	border-color: var(--clefa-border);
+	box-shadow: 0 2px 8px rgba(124,58,237,.06);
+}
+
+.clefa-form-wrap[data-clefa-theme="soft"] .clefa-input:focus,
+.clefa-form-wrap[data-clefa-theme="soft"] .clefa-textarea:focus,
+.clefa-form-wrap[data-clefa-theme="soft"] .clefa-select:focus {
+	border-color: var(--clefa-primary);
+	background: #fff;
+	box-shadow: 0 0 0 3px rgba(124,58,237,.15);
+}
+
+.clefa-form-wrap[data-clefa-theme="soft"] .clefa-btn-primary {
+	background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+	box-shadow: 0 4px 12px rgba(124,58,237,.3);
+}
+
+/* --- Ocean: deep sea blues --- */
+.clefa-form-wrap[data-clefa-theme="ocean"] {
+	--clefa-primary:    #0ea5e9;
+	--clefa-border:     #bae6fd;
+	--clefa-input-bg:   #f0f9ff;
+	--clefa-text:       #0c4a6e;
+	background: #e0f2fe;
+	border-radius: var(--clefa-radius-lg);
+	padding: 1.25rem;
+}
+
+.clefa-form-wrap[data-clefa-theme="ocean"] .clefa-input,
+.clefa-form-wrap[data-clefa-theme="ocean"] .clefa-textarea,
+.clefa-form-wrap[data-clefa-theme="ocean"] .clefa-select {
+	background: var(--clefa-input-bg);
+	border-color: var(--clefa-border);
+	color: var(--clefa-text);
+}
+
+.clefa-form-wrap[data-clefa-theme="ocean"] .clefa-input:focus,
+.clefa-form-wrap[data-clefa-theme="ocean"] .clefa-textarea:focus,
+.clefa-form-wrap[data-clefa-theme="ocean"] .clefa-select:focus {
+	border-color: var(--clefa-primary);
+	box-shadow: 0 0 0 3px rgba(14,165,233,.2);
+}
+
+.clefa-form-wrap[data-clefa-theme="ocean"] .clefa-btn-primary {
+	background: linear-gradient(135deg, #38bdf8, #0284c7);
+	box-shadow: 0 4px 12px rgba(14,165,233,.3);
+}
+
+/* --- Forest: earthy greens --- */
+.clefa-form-wrap[data-clefa-theme="forest"] {
+	--clefa-primary:    #16a34a;
+	--clefa-border:     #bbf7d0;
+	--clefa-input-bg:   #f0fdf4;
+	--clefa-text:       #14532d;
+	background: #dcfce7;
+	border-radius: var(--clefa-radius-lg);
+	padding: 1.25rem;
+}
+
+.clefa-form-wrap[data-clefa-theme="forest"] .clefa-input,
+.clefa-form-wrap[data-clefa-theme="forest"] .clefa-textarea,
+.clefa-form-wrap[data-clefa-theme="forest"] .clefa-select {
+	background: var(--clefa-input-bg);
+	border-color: var(--clefa-border);
+	color: var(--clefa-text);
+}
+
+.clefa-form-wrap[data-clefa-theme="forest"] .clefa-input:focus,
+.clefa-form-wrap[data-clefa-theme="forest"] .clefa-textarea:focus,
+.clefa-form-wrap[data-clefa-theme="forest"] .clefa-select:focus {
+	border-color: var(--clefa-primary);
+	box-shadow: 0 0 0 3px rgba(22,163,74,.2);
+}
+
+.clefa-form-wrap[data-clefa-theme="forest"] .clefa-btn-primary {
+	background: linear-gradient(135deg, #4ade80, #16a34a);
+	box-shadow: 0 4px 12px rgba(22,163,74,.3);
+}
+
+/* --- Sunset: warm orange + rose gradient accents --- */
+.clefa-form-wrap[data-clefa-theme="sunset"] {
+	--clefa-primary:    #ea580c;
+	--clefa-border:     #fed7aa;
+	--clefa-input-bg:   #fff7ed;
+	--clefa-text:       #431407;
+	background: linear-gradient(160deg, #fff7ed 0%, #fce7f3 100%);
+	border-radius: var(--clefa-radius-lg);
+	padding: 1.25rem;
+}
+
+.clefa-form-wrap[data-clefa-theme="sunset"] .clefa-input,
+.clefa-form-wrap[data-clefa-theme="sunset"] .clefa-textarea,
+.clefa-form-wrap[data-clefa-theme="sunset"] .clefa-select {
+	background: var(--clefa-input-bg);
+	border-color: var(--clefa-border);
+	color: var(--clefa-text);
+}
+
+.clefa-form-wrap[data-clefa-theme="sunset"] .clefa-input:focus,
+.clefa-form-wrap[data-clefa-theme="sunset"] .clefa-textarea:focus,
+.clefa-form-wrap[data-clefa-theme="sunset"] .clefa-select:focus {
+	border-color: var(--clefa-primary);
+	box-shadow: 0 0 0 3px rgba(234,88,12,.2);
+}
+
+.clefa-form-wrap[data-clefa-theme="sunset"] .clefa-btn-primary {
+	background: linear-gradient(135deg, #fb923c, #be123c);
+	box-shadow: 0 4px 12px rgba(234,88,12,.35);
+}
+
+/* --- Neon: dark with electric accents --- */
+.clefa-form-wrap[data-clefa-theme="neon"] {
+	--clefa-primary:    #a3e635;
+	--clefa-border:     #1e293b;
+	--clefa-input-bg:   #0f172a;
+	--clefa-text:       #f8fafc;
+	--clefa-text-muted: #94a3b8;
+	background: #020617;
+	border-radius: var(--clefa-radius-lg);
+	padding: 1.5rem;
+	color: var(--clefa-text);
+}
+
+.clefa-form-wrap[data-clefa-theme="neon"] .clefa-label {
+	color: #a3e635;
+	text-transform: uppercase;
+	font-size: 0.75rem;
+	letter-spacing: 0.1em;
+	font-weight: 700;
+}
+
+.clefa-form-wrap[data-clefa-theme="neon"] .clefa-input,
+.clefa-form-wrap[data-clefa-theme="neon"] .clefa-textarea,
+.clefa-form-wrap[data-clefa-theme="neon"] .clefa-select {
+	background: #0f172a;
+	border: 1px solid #1e3a5f;
+	color: #f8fafc;
+}
+
+.clefa-form-wrap[data-clefa-theme="neon"] .clefa-input:focus,
+.clefa-form-wrap[data-clefa-theme="neon"] .clefa-textarea:focus,
+.clefa-form-wrap[data-clefa-theme="neon"] .clefa-select:focus {
+	border-color: #a3e635;
+	box-shadow: 0 0 0 2px rgba(163,230,53,.25), 0 0 12px rgba(163,230,53,.15);
+}
+
+.clefa-form-wrap[data-clefa-theme="neon"] .clefa-btn-primary {
+	background: #a3e635;
+	color: #020617;
+	font-weight: 700;
+	box-shadow: 0 0 16px rgba(163,230,53,.4);
+}
+
+.clefa-form-wrap[data-clefa-theme="neon"] .clefa-btn-primary:hover {
+	background: #bef264;
+	box-shadow: 0 0 24px rgba(163,230,53,.6);
+}
+
+/* =============================================
+   Custom Style Overrides
+   Applied via inline CSS vars on .clefa-form-wrap
+   when the user sets custom_styles in the builder.
+   ============================================= */
+/* Custom vars are set inline on the element:
+   style="--clefa-primary:#x; --clefa-border:#y; ..."
+   No additional CSS needed — all vars already consumed above. */
+
+/* Theme applied on the form.php wrapper via data-clefa-theme attribute */

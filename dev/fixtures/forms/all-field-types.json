@@ -1,0 +1,158 @@
+{
+  "slug": "all-field-types",
+  "form_name": "[TEST] All Field Types",
+  "description": "[TEST] Seeded form — one instance of every supported field type for rendering and DOM tests",
+  "form_type": "standard",
+  "config": {
+    "form_name": "[TEST] All Field Types",
+    "form_type": "standard",
+    "settings": {},
+    "notifications": [],
+    "actions": [],
+    "steps": [
+      {
+        "step_id": "step_1",
+        "step_name": "All Types",
+        "routing": [],
+        "fields": [
+          {
+            "field_id": "ft_text",
+            "field_type": "text",
+            "label": "Text Field",
+            "placeholder": "Plain text input",
+            "required": false,
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "ft_email",
+            "field_type": "email",
+            "label": "Email Field",
+            "placeholder": "you@example.com",
+            "required": false,
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "ft_password",
+            "field_type": "password",
+            "label": "Password Field",
+            "placeholder": "Enter password",
+            "required": false,
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "ft_number",
+            "field_type": "number",
+            "label": "Number Field",
+            "placeholder": "42",
+            "required": false,
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "ft_textarea",
+            "field_type": "textarea",
+            "label": "Textarea Field",
+            "placeholder": "Multi-line text…",
+            "required": false,
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "ft_select",
+            "field_type": "select",
+            "label": "Select Field",
+            "required": false,
+            "options": [
+              { "value": "",    "label": "Choose an option" },
+              { "value": "one", "label": "Option One" },
+              { "value": "two", "label": "Option Two" },
+              { "value": "thr", "label": "Option Three" }
+            ],
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "ft_radio",
+            "field_type": "radio",
+            "label": "Radio Field",
+            "required": false,
+            "options": [
+              { "value": "yes", "label": "Yes" },
+              { "value": "no",  "label": "No" },
+              { "value": "maybe","label": "Maybe" }
+            ],
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "ft_checkbox",
+            "field_type": "checkbox",
+            "label": "Checkbox Field (multi)",
+            "required": false,
+            "options": [
+              { "value": "a", "label": "Choice A" },
+              { "value": "b", "label": "Choice B" },
+              { "value": "c", "label": "Choice C" }
+            ],
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "ft_date",
+            "field_type": "date",
+            "label": "Date Field",
+            "required": false,
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "ft_range",
+            "field_type": "range",
+            "label": "Range Field",
+            "min": "0",
+            "max": "100",
+            "step": "1",
+            "default_value": "50",
+            "required": false,
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "ft_file",
+            "field_type": "file",
+            "label": "File Upload Field",
+            "required": false,
+            "validation_rules": [
+              { "rule": "max_file_size", "value": "5120", "message": "" }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "ft_hidden",
+            "field_type": "hidden",
+            "label": "Hidden Field",
+            "default_value": "hidden-value-123",
+            "conditions": []
+          },
+          {
+            "field_id": "ft_html",
+            "field_type": "html",
+            "label": "HTML Block",
+            "content": "<p>This is a <strong>HTML block</strong> field. It can contain arbitrary markup, <a href=\"#\">links</a>, and <code>{ft_text}</code> token replacements.</p>",
+            "conditions": []
+          },
+          {
+            "field_id": "ft_notice",
+            "field_type": "notice",
+            "label": "Notice Field",
+            "content": "This is a notice field. Use it to display contextual information.",
+            "conditions": []
+          }
+        ]
+      }
+    ]
+  }
+}

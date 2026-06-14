@@ -1,0 +1,114 @@
+{
+  "slug": "validation-basic",
+  "form_name": "[TEST] Validation Basic",
+  "description": "[TEST] Seeded form — required, email, min/max length, number range, textarea, select, checkbox",
+  "form_type": "standard",
+  "config": {
+    "form_name": "[TEST] Validation Basic",
+    "form_type": "standard",
+    "settings": { "store_submissions": true },
+    "notifications": [],
+    "actions": [
+      { "action_id": "a1", "action_type": "save_submission", "enabled": true, "config": {} }
+    ],
+    "steps": [
+      {
+        "step_id": "step_1",
+        "step_name": "Details",
+        "routing": [],
+        "fields": [
+          {
+            "field_id": "full_name",
+            "field_type": "text",
+            "label": "Full Name",
+            "placeholder": "Jane Smith",
+            "required": true,
+            "validation_rules": [
+              { "rule": "min_length", "value": "2",   "message": "" },
+              { "rule": "max_length", "value": "100", "message": "Name is too long." },
+              { "rule": "alpha_only", "value": "",    "message": "Letters only please." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "email",
+            "field_type": "email",
+            "label": "Email Address",
+            "placeholder": "you@example.com",
+            "required": true,
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "age",
+            "field_type": "number",
+            "label": "Age",
+            "placeholder": "25",
+            "required": false,
+            "validation_rules": [
+              { "rule": "min_value", "value": "18",  "message": "Must be at least 18." },
+              { "rule": "max_value", "value": "120", "message": "" }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "bio",
+            "field_type": "textarea",
+            "label": "Short Bio",
+            "placeholder": "Tell us about yourself…",
+            "required": false,
+            "validation_rules": [
+              { "rule": "max_length", "value": "500", "message": "Bio must be 500 characters or fewer." },
+              { "rule": "min_words",  "value": "5",   "message": "Please write at least 5 words." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "country",
+            "field_type": "select",
+            "label": "Country",
+            "required": true,
+            "options": [
+              { "value": "",   "label": "Select a country" },
+              { "value": "au", "label": "Australia" },
+              { "value": "us", "label": "United States" },
+              { "value": "gb", "label": "United Kingdom" },
+              { "value": "ca", "label": "Canada" },
+              { "value": "nz", "label": "New Zealand" }
+            ],
+            "validation_rules": [],
+            "conditions": []
+          },
+          {
+            "field_id": "interests",
+            "field_type": "checkbox",
+            "label": "Interests",
+            "required": false,
+            "options": [
+              { "value": "tech",    "label": "Technology" },
+              { "value": "design",  "label": "Design" },
+              { "value": "business","label": "Business" },
+              { "value": "other",   "label": "Other" }
+            ],
+            "validation_rules": [
+              { "rule": "min_checked", "value": "1", "message": "Select at least one interest." },
+              { "rule": "max_checked", "value": "3", "message": "Select at most three interests." }
+            ],
+            "conditions": []
+          },
+          {
+            "field_id": "website",
+            "field_type": "text",
+            "label": "Website (optional)",
+            "placeholder": "https://example.com",
+            "required": false,
+            "validation_rules": [
+              { "rule": "url", "value": "", "message": "Please enter a valid URL." }
+            ],
+            "conditions": []
+          }
+        ]
+      }
+    ]
+  }
+}

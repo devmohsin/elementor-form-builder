@@ -1,0 +1,914 @@
+/* =============================================
+   CodeLinden Form Addon — Admin Global CSS
+   Uses data attributes for all JS hooks.
+   No !important declarations.
+   ============================================= */
+
+:root {
+	--clefa-primary:        #4f46e5;
+	--clefa-primary-hover:  #4338ca;
+	--clefa-primary-light:  #ede9fe;
+	--clefa-success:        #059669;
+	--clefa-success-light:  #d1fae5;
+	--clefa-warning:        #d97706;
+	--clefa-warning-light:  #fef3c7;
+	--clefa-danger:         #dc2626;
+	--clefa-danger-light:   #fee2e2;
+	--clefa-surface:        #ffffff;
+	--clefa-surface-alt:    #f8fafc;
+	--clefa-border:         #e2e8f0;
+	--clefa-border-focus:   #4f46e5;
+	--clefa-text:           #1e293b;
+	--clefa-text-muted:     #64748b;
+	--clefa-text-sm:        0.8125rem;
+	--clefa-shadow-sm:      0 1px 2px rgba(0,0,0,0.07);
+	--clefa-shadow:         0 4px 6px rgba(0,0,0,0.07);
+	--clefa-shadow-lg:      0 10px 15px rgba(0,0,0,0.1);
+	--clefa-radius-sm:      4px;
+	--clefa-radius:         8px;
+	--clefa-radius-lg:      12px;
+	--clefa-transition:     180ms ease;
+}
+
+/* Page Layout — clear floats from admin notices above our markup */
+.clefa-admin-notice-clear {
+	clear: both;
+	display: block;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	line-height: 0;
+	font-size: 0;
+}
+
+.wrap.clefa-admin-page {
+	clear: both;
+	float: none;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.clefa-admin-page {
+	max-width: 1400px;
+}
+
+/* WP relocates admin notices to immediately after the first h1 inside .wrap */
+.wrap.clefa-admin-page > .notice,
+.wrap.clefa-admin-page > .update-nag,
+.wrap.clefa-admin-page > [class*="-notice"]:not(.clefa-dep-notice) {
+	clear: both;
+	display: block;
+	width: 100%;
+	margin: 12px 0;
+	box-sizing: border-box;
+}
+
+.clefa-page-title {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: var(--clefa-text);
+	margin: 16px 0 0;
+	padding: 0;
+	clear: both;
+}
+
+.clefa-page-toolbar {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+	margin: 0 0 24px;
+	padding: 0;
+	clear: both;
+}
+
+.clefa-page-toolbar-multiline {
+	justify-content: flex-end;
+	flex-wrap: wrap;
+}
+
+.clefa-page-intro {
+	clear: both;
+	margin-bottom: 20px;
+}
+
+.clefa-page-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 16px 0 24px;
+	padding: 0;
+	clear: both;
+	width: 100%;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+.clefa-page-title .dashicons {
+	color: var(--clefa-primary);
+	font-size: 1.4rem;
+	width: 1.4rem;
+	height: 1.4rem;
+}
+
+/* Buttons */
+.clefa-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 16px;
+	border-radius: var(--clefa-radius-sm);
+	border: 1px solid transparent;
+	font-size: 0.875rem;
+	font-weight: 500;
+	line-height: 1.4;
+	cursor: pointer;
+	text-decoration: none;
+	white-space: nowrap;
+	transition: background-color var(--clefa-transition), color var(--clefa-transition), border-color var(--clefa-transition);
+	font-family: inherit;
+}
+
+.clefa-btn .dashicons {
+	font-size: 1rem;
+	width: 1rem;
+	height: 1rem;
+	line-height: 1;
+}
+
+.clefa-btn-primary {
+	background-color: var(--clefa-primary);
+	color: #fff;
+	border-color: var(--clefa-primary);
+}
+
+.clefa-btn-primary:hover {
+	background-color: var(--clefa-primary-hover);
+	border-color: var(--clefa-primary-hover);
+	color: #fff;
+}
+
+.clefa-btn-secondary {
+	background-color: var(--clefa-surface);
+	color: var(--clefa-text);
+	border-color: var(--clefa-border);
+}
+
+.clefa-btn-secondary:hover {
+	background-color: var(--clefa-surface-alt);
+	color: var(--clefa-text);
+}
+
+.clefa-btn-outline {
+	background-color: transparent;
+	color: var(--clefa-primary);
+	border-color: var(--clefa-primary);
+}
+
+.clefa-btn-outline:hover {
+	background-color: var(--clefa-primary-light);
+}
+
+.clefa-btn-ghost {
+	background-color: transparent;
+	color: var(--clefa-text-muted);
+	border-color: transparent;
+}
+
+.clefa-btn-ghost:hover {
+	background-color: var(--clefa-surface-alt);
+	color: var(--clefa-text);
+}
+
+.clefa-btn-warning {
+	background-color: var(--clefa-warning);
+	color: #fff;
+	border-color: var(--clefa-warning);
+}
+
+.clefa-btn-warning:hover {
+	background-color: #b45309;
+	border-color: #b45309;
+	color: #fff;
+}
+
+.clefa-btn-danger-ghost {
+	background-color: transparent;
+	color: var(--clefa-danger);
+	border-color: transparent;
+}
+
+.clefa-btn-danger-ghost:hover {
+	background-color: var(--clefa-danger-light);
+}
+
+.clefa-btn-sm {
+	padding: 5px 12px;
+	font-size: 0.8125rem;
+}
+
+.clefa-btn-xs {
+	padding: 3px 8px;
+	font-size: 0.75rem;
+}
+
+.clefa-btn-lg {
+	padding: 12px 24px;
+	font-size: 1rem;
+}
+
+/* Badges */
+.clefa-badge {
+	display: inline-flex;
+	align-items: center;
+	padding: 2px 8px;
+	border-radius: 100px;
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+.clefa-badge-success, .clefa-badge-published, .clefa-badge-complete {
+	background-color: var(--clefa-success-light);
+	color: var(--clefa-success);
+}
+
+.clefa-badge-draft, .clefa-badge-pending {
+	background-color: var(--clefa-surface-alt);
+	color: var(--clefa-text-muted);
+}
+
+.clefa-badge-warning {
+	background-color: var(--clefa-warning-light);
+	color: var(--clefa-warning);
+}
+
+.clefa-badge-danger, .clefa-badge-error {
+	background-color: var(--clefa-danger-light);
+	color: var(--clefa-danger);
+}
+
+/* Cards */
+.clefa-card {
+	background: var(--clefa-surface);
+	border: 1px solid var(--clefa-border);
+	border-radius: var(--clefa-radius);
+	box-shadow: var(--clefa-shadow-sm);
+	margin-bottom: 20px;
+}
+
+.clefa-card-header {
+	padding: 14px 20px;
+	border-bottom: 1px solid var(--clefa-border);
+}
+
+.clefa-card-header h2,
+.clefa-card-header h3 {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--clefa-text);
+}
+
+.clefa-card-body {
+	padding: 20px;
+}
+
+/* Field rows */
+.clefa-field-row {
+	margin-bottom: 16px;
+}
+
+.clefa-field-row label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: 500;
+	font-size: 0.875rem;
+	color: var(--clefa-text);
+}
+
+.clefa-field-row input[type="text"],
+.clefa-field-row input[type="email"],
+.clefa-field-row input[type="url"],
+.clefa-field-row input[type="number"],
+.clefa-field-row textarea,
+.clefa-field-row select {
+	width: 100%;
+	max-width: 480px;
+	padding: 7px 10px;
+	border: 1px solid var(--clefa-border);
+	border-radius: var(--clefa-radius-sm);
+	font-size: 0.875rem;
+	color: var(--clefa-text);
+	background: var(--clefa-surface);
+	transition: border-color var(--clefa-transition);
+	font-family: inherit;
+}
+
+.clefa-field-row input:focus,
+.clefa-field-row textarea:focus,
+.clefa-field-row select:focus {
+	outline: none;
+	border-color: var(--clefa-border-focus);
+	box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.clefa-field-row .description,
+.clefa-field-row p.description {
+	margin-top: 4px;
+	font-size: 0.8125rem;
+	color: var(--clefa-text-muted);
+}
+
+.clefa-field-row-checkbox label {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	cursor: pointer;
+	font-weight: 400;
+}
+
+.clefa-field-row-checkbox input[type="checkbox"] {
+	margin-top: 2px;
+	flex-shrink: 0;
+}
+
+/* Empty state */
+.clefa-empty-state {
+	text-align: center;
+	padding: 60px 24px;
+	color: var(--clefa-text-muted);
+}
+
+.clefa-empty-icon {
+	font-size: 4rem;
+	width: 4rem;
+	height: 4rem;
+	color: var(--clefa-border);
+	margin-bottom: 12px;
+}
+
+.clefa-empty-state h2 {
+	color: var(--clefa-text);
+	margin-bottom: 8px;
+}
+
+.clefa-empty-state-sm {
+	padding: 24px;
+}
+
+/* Forms grid */
+.clefa-forms-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	gap: 20px;
+	margin-top: 4px;
+}
+
+.clefa-form-card {
+	background: var(--clefa-surface);
+	border: 1px solid var(--clefa-border);
+	border-radius: var(--clefa-radius);
+	box-shadow: var(--clefa-shadow-sm);
+	display: flex;
+	flex-direction: column;
+	transition: box-shadow var(--clefa-transition), border-color var(--clefa-transition);
+}
+
+.clefa-form-card:hover {
+	box-shadow: var(--clefa-shadow);
+	border-color: #c7d2fe;
+}
+
+.clefa-form-card-body {
+	padding: 20px;
+	flex: 1;
+}
+
+.clefa-form-card-title-row {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+
+.clefa-form-card-title {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.clefa-form-card-title a {
+	color: var(--clefa-text);
+	text-decoration: none;
+}
+
+.clefa-form-card-title a:hover {
+	color: var(--clefa-primary);
+}
+
+.clefa-form-card-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+
+.clefa-form-meta-item {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 0.8125rem;
+	color: var(--clefa-text-muted);
+}
+
+.clefa-form-meta-item .dashicons {
+	font-size: 0.9rem;
+	width: 0.9rem;
+	height: 0.9rem;
+}
+
+.clefa-form-features {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+}
+
+.clefa-feature-chip {
+	display: inline-block;
+	padding: 2px 7px;
+	background: var(--clefa-primary-light);
+	color: var(--clefa-primary);
+	border-radius: 100px;
+	font-size: 0.7rem;
+	font-weight: 600;
+}
+
+.clefa-form-card-actions {
+	padding: 12px 20px;
+	border-top: 1px solid var(--clefa-border);
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+
+/* Settings page layout */
+.clefa-settings-layout {
+	display: grid;
+	grid-template-columns: 1fr 280px;
+	gap: 24px;
+}
+
+.clefa-settings-actions {
+	margin-top: 8px;
+}
+
+.clefa-quick-links {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.clefa-quick-links li {
+	padding: 4px 0;
+	border-bottom: 1px solid var(--clefa-border);
+}
+
+.clefa-quick-links li:last-child {
+	border-bottom: none;
+}
+
+.clefa-quick-links a {
+	color: var(--clefa-primary);
+	text-decoration: none;
+	font-size: 0.875rem;
+}
+
+.clefa-quick-links a:hover {
+	text-decoration: underline;
+}
+
+/* Table */
+.clefa-table th {
+	font-weight: 600;
+	font-size: 0.875rem;
+}
+
+/* Pagination */
+.clefa-pagination {
+	display: flex;
+	gap: 4px;
+	margin-top: 20px;
+	justify-content: center;
+}
+
+/* Utility */
+.clefa-text-muted { color: var(--clefa-text-muted); }
+.clefa-text-sm    { font-size: var(--clefa-text-sm); }
+
+.clefa-page-header-actions {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.clefa-filter-form select {
+	padding: 6px 10px;
+	border: 1px solid var(--clefa-border);
+	border-radius: var(--clefa-radius-sm);
+	font-size: 0.875rem;
+}
+
+/* Settings form within settings page */
+.clefa-settings-form-wrap .clefa-field-row input,
+.clefa-settings-form-wrap .clefa-field-row textarea,
+.clefa-settings-form-wrap .clefa-field-row select {
+	max-width: 100%;
+}
+
+@media (max-width: 960px) {
+	.clefa-settings-layout {
+		grid-template-columns: 1fr;
+	}
+	.clefa-forms-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* =============================================
+   Template Picker Modal
+   ============================================= */
+
+.clefa-tpl-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.clefa-tpl-modal[hidden] {
+	display: none;
+}
+
+.clefa-tpl-modal-backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(0,0,0,0.55);
+	cursor: pointer;
+}
+
+.clefa-tpl-modal-box {
+	position: relative;
+	z-index: 1;
+	background: var(--clefa-surface);
+	border-radius: var(--clefa-radius-lg);
+	box-shadow: var(--clefa-shadow-lg);
+	padding: 2rem;
+	width: 100%;
+	max-width: 780px;
+	max-height: 90vh;
+	overflow-y: auto;
+}
+
+.clefa-tpl-modal-close {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: var(--clefa-text-muted);
+	padding: 4px;
+	line-height: 1;
+	border-radius: var(--clefa-radius-sm);
+	transition: color var(--clefa-transition), background var(--clefa-transition);
+}
+
+.clefa-tpl-modal-close:hover {
+	color: var(--clefa-text);
+	background: var(--clefa-surface-alt);
+}
+
+.clefa-tpl-modal-title {
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: var(--clefa-text);
+	margin: 0 0 0.375rem;
+}
+
+.clefa-tpl-modal-subtitle {
+	color: var(--clefa-text-muted);
+	font-size: 0.9rem;
+	margin: 0 0 1.5rem;
+}
+
+.clefa-tpl-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	gap: 1rem;
+	margin-bottom: 1.5rem;
+}
+
+.clefa-tpl-card {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.375rem;
+	background: var(--clefa-surface-alt);
+	border: 2px solid var(--clefa-border);
+	border-radius: var(--clefa-radius);
+	padding: 1.125rem 1rem;
+	cursor: pointer;
+	text-align: left;
+	transition: border-color var(--clefa-transition), box-shadow var(--clefa-transition), background var(--clefa-transition);
+}
+
+.clefa-tpl-card:hover {
+	border-color: var(--clefa-primary);
+	background: var(--clefa-primary-light);
+}
+
+.clefa-tpl-card-selected {
+	border-color: var(--clefa-primary);
+	background: var(--clefa-primary-light);
+	box-shadow: 0 0 0 3px rgba(79,70,229,.2);
+}
+
+.clefa-tpl-icon {
+	font-size: 1.75rem;
+	width: 1.75rem;
+	height: 1.75rem;
+	color: var(--clefa-primary);
+	margin-bottom: 0.25rem;
+}
+
+.clefa-tpl-label {
+	font-weight: 600;
+	font-size: 0.9375rem;
+	color: var(--clefa-text);
+}
+
+.clefa-tpl-desc {
+	font-size: 0.78rem;
+	color: var(--clefa-text-muted);
+	line-height: 1.4;
+}
+
+.clefa-tpl-form-name-row {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 1.25rem;
+	background: var(--clefa-surface-alt);
+	border: 1px solid var(--clefa-border);
+	border-radius: var(--clefa-radius);
+}
+
+.clefa-tpl-form-name-row[hidden] {
+	display: none;
+}
+
+.clefa-tpl-name-label {
+	font-weight: 600;
+	font-size: 0.875rem;
+	color: var(--clefa-text);
+	white-space: nowrap;
+}
+
+.clefa-tpl-name-input {
+	flex: 1;
+	padding: 0.5rem 0.75rem;
+	border: 1.5px solid var(--clefa-border);
+	border-radius: var(--clefa-radius-sm);
+	font-size: 0.9375rem;
+	color: var(--clefa-text);
+	background: var(--clefa-surface);
+	outline: none;
+	transition: border-color var(--clefa-transition);
+}
+
+.clefa-tpl-name-input:focus {
+	border-color: var(--clefa-primary);
+	box-shadow: 0 0 0 3px rgba(79,70,229,.12);
+}
+
+/* Badge for info (locked field label) */
+.clefa-badge-info {
+	background: #dbeafe;
+	color: #1d4ed8;
+}
+
+/* Locked field styling in the field item list */
+.clefa-field-item-locked {
+	opacity: 0.85;
+	background: repeating-linear-gradient(
+		-45deg,
+		transparent,
+		transparent 8px,
+		rgba(79,70,229,.04) 8px,
+		rgba(79,70,229,.04) 16px
+	);
+}
+
+/* =============================================
+   Theme Picker
+   ============================================= */
+.clefa-theme-picker {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+	gap: 10px;
+	margin-top: 8px;
+}
+
+.clefa-theme-pick-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 8px 10px;
+	border: 2px solid #e2e8f0;
+	border-radius: 8px;
+	background: #fff;
+	cursor: pointer;
+	transition: border-color .15s, box-shadow .15s, transform .1s;
+	text-align: center;
+	font-family: inherit;
+}
+
+.clefa-theme-pick-card:hover {
+	border-color: #4f46e5;
+	box-shadow: 0 2px 12px rgba(79,70,229,.12);
+	transform: translateY(-1px);
+}
+
+.clefa-theme-pick-card.clefa-theme-pick-active {
+	border-color: #4f46e5;
+	box-shadow: 0 0 0 3px rgba(79,70,229,.18);
+	background: #f5f3ff;
+}
+
+.clefa-theme-pick-preview {
+	display: block;
+	width: 140px;
+	height: 96px;
+	overflow: hidden;
+	border-radius: 5px;
+	border: 1px solid #e9ecef;
+	line-height: 0;
+}
+
+.clefa-theme-pick-preview svg {
+	display: block;
+	width: 140px;
+	height: 96px;
+}
+
+.clefa-theme-pick-label {
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: #1e293b;
+	line-height: 1.2;
+}
+
+.clefa-theme-pick-desc {
+	font-size: 0.6875rem;
+	color: #64748b;
+	line-height: 1.3;
+}
+
+.clefa-theme-pick-card.clefa-theme-pick-active .clefa-theme-pick-label {
+	color: #4f46e5;
+}
+
+/* Section description */
+.clefa-settings-section-desc {
+	margin: -4px 0 12px;
+	font-size: 0.8rem;
+	color: #64748b;
+}
+
+/* =============================================
+   Style Override Grid
+   ============================================= */
+.clefa-style-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 14px 18px;
+	margin-top: 6px;
+}
+
+.clefa-style-field {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.clefa-style-field-label {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: #374151;
+}
+
+/* Color field: swatch + hex text + clear */
+.clefa-color-field {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.clefa-color-picker {
+	width: 36px;
+	height: 30px;
+	padding: 1px 2px;
+	border: 1.5px solid #d1d5db;
+	border-radius: 5px;
+	cursor: pointer;
+	background: none;
+	flex-shrink: 0;
+}
+
+.clefa-color-text {
+	flex: 1;
+	height: 30px;
+	padding: 0 8px;
+	font-size: 0.8125rem;
+	border: 1.5px solid #d1d5db;
+	border-radius: 5px;
+	min-width: 0;
+	font-family: monospace;
+}
+
+.clefa-color-text:focus {
+	border-color: #4f46e5;
+	outline: none;
+	box-shadow: 0 0 0 2px rgba(79,70,229,.12);
+}
+
+.clefa-color-clear {
+	width: 26px;
+	height: 26px;
+	border: 1.5px solid #d1d5db;
+	border-radius: 4px;
+	background: #f8fafc;
+	cursor: pointer;
+	font-size: 1rem;
+	line-height: 1;
+	color: #6b7280;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	padding: 0;
+}
+
+.clefa-color-clear:hover {
+	background: #fee2e2;
+	border-color: #dc2626;
+	color: #dc2626;
+}
+
+/* Range field */
+.clefa-range-field {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.clefa-range-input {
+	flex: 1;
+	accent-color: #4f46e5;
+	cursor: pointer;
+}
+
+.clefa-range-value {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: #4f46e5;
+	min-width: 30px;
+	text-align: right;
+}
+
+/* Style select */
+.clefa-style-select {
+	height: 30px;
+	padding: 0 8px;
+	font-size: 0.8125rem;
+	border: 1.5px solid #d1d5db;
+	border-radius: 5px;
+	background: #fff;
+}
+
+.clefa-style-select:focus {
+	border-color: #4f46e5;
+	outline: none;
+	box-shadow: 0 0 0 2px rgba(79,70,229,.12);
+}
+

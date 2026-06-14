@@ -1,0 +1,491 @@
+/*
+ * CLEFA Filter Engine — Frontend styles
+ * Scoped under .clefa-filter-widget
+ */
+
+/* ---- Widget Wrapper ---- */
+.clefa-filter-widget {
+	position: relative;
+	font-size: 0.9375rem;
+	color: var(--clefa-text, #333);
+}
+
+/* ---- Section ---- */
+.clefa-filter-section {
+	border-bottom: 1px solid var(--clefa-border, #e2e8f0);
+	padding-bottom: 1rem;
+	margin-bottom: 1rem;
+}
+
+.clefa-filter-section:last-child {
+	border-bottom: none;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+/* ---- Section Heading / Toggle ---- */
+.clefa-filter-section-heading {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0 0 0.75rem;
+	cursor: pointer;
+	font-size: inherit;
+	font-weight: 600;
+	color: inherit;
+	text-align: left;
+}
+
+.clefa-filter-section-heading:not(.clefa-filter-section-toggle) {
+	cursor: default;
+}
+
+.clefa-filter-section-chevron {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-right: 2px solid currentColor;
+	border-bottom: 2px solid currentColor;
+	transform: rotate(45deg);
+	transition: transform 0.2s;
+	flex-shrink: 0;
+}
+
+.clefa-filter-section-toggle[aria-expanded="false"] .clefa-filter-section-chevron {
+	transform: rotate(-45deg);
+}
+
+/* ---- Options list (checkbox / radio) ---- */
+.clefa-filter-options {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.clefa-filter-option {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.clefa-filter-option input[type="checkbox"],
+.clefa-filter-option input[type="radio"] {
+	width: 16px;
+	height: 16px;
+	flex-shrink: 0;
+	cursor: pointer;
+	accent-color: var(--clefa-primary, #3b82f6);
+}
+
+.clefa-filter-option-label {
+	cursor: pointer;
+	line-height: 1.4;
+}
+
+.clefa-filter-count {
+	color: var(--clefa-text-muted, #94a3b8);
+	font-size: 0.8125rem;
+	margin-left: 2px;
+}
+
+/* ---- Select ---- */
+.clefa-filter-select {
+	width: 100%;
+}
+
+/* ---- Date range ---- */
+.clefa-filter-date-range {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+/* ---- Single-handle range filter ---- */
+.clefa-filter-range-wrap {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 0.25rem 0;
+}
+
+.clefa-filter-range-track {
+	position: relative;
+	height: 4px;
+	background: var(--clefa-range-track, #ddd);
+	border-radius: 2px;
+	margin: 0.5rem 0;
+}
+
+.clefa-filter-range-fill {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	background: var(--clefa-primary, #5271ff);
+	border-radius: 2px;
+	pointer-events: none;
+}
+
+.clefa-filter-range-input {
+	width: 100%;
+	cursor: pointer;
+	accent-color: var(--clefa-primary, #5271ff);
+}
+
+.clefa-filter-range-value {
+	font-size: 0.875rem;
+	color: var(--clefa-text-muted, #666);
+	text-align: right;
+}
+
+.clefa-filter-date-row {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.clefa-filter-date-label {
+	min-width: 3rem;
+	font-size: 0.8125rem;
+	color: var(--clefa-text-muted, #94a3b8);
+}
+
+/* ---- Search ---- */
+.clefa-filter-search-wrap {
+	position: relative;
+}
+
+.clefa-filter-search {
+	width: 100%;
+}
+
+/* ---- Active filter chips bar ---- */
+.clefa-filter-chips-bar {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	padding: 0.5rem 0;
+	margin-bottom: 1rem;
+}
+
+.clefa-filter-chips-label {
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: var(--clefa-text-muted, #94a3b8);
+	flex-shrink: 0;
+}
+
+.clefa-filter-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.375rem;
+	flex: 1 1 auto;
+}
+
+.clefa-filter-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	padding: 0.25rem 0.625rem;
+	border-radius: 9999px;
+	font-size: 0.8125rem;
+	background: var(--clefa-primary, #3b82f6);
+	color: #fff;
+}
+
+.clefa-filter-chip-remove {
+	background: none;
+	border: none;
+	color: inherit;
+	cursor: pointer;
+	line-height: 1;
+	padding: 0;
+	font-size: 0.8125rem;
+	opacity: 0.8;
+	transition: opacity 0.15s;
+}
+
+.clefa-filter-chip-remove:hover { opacity: 1; }
+
+.clefa-filter-reset-all {
+	background: none;
+	border: 1px solid var(--clefa-border, #e2e8f0);
+	border-radius: var(--clefa-radius, 6px);
+	padding: 0.25rem 0.75rem;
+	font-size: 0.8125rem;
+	cursor: pointer;
+	color: var(--clefa-text-muted, #94a3b8);
+	transition: background 0.15s, color 0.15s;
+	flex-shrink: 0;
+}
+
+.clefa-filter-reset-all:hover {
+	background: var(--clefa-border, #e2e8f0);
+	color: var(--clefa-text, #333);
+}
+
+/* ---- Actions row ---- */
+.clefa-filter-actions {
+	display: flex;
+	gap: 0.5rem;
+	margin-top: 1.25rem;
+}
+
+/* ---- Loading overlay ---- */
+.clefa-filter-loading {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(255,255,255,0.6);
+	border-radius: inherit;
+	z-index: 10;
+}
+
+.clefa-filter-spinner {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	border: 3px solid var(--clefa-border, #e2e8f0);
+	border-top-color: var(--clefa-primary, #3b82f6);
+	border-radius: 50%;
+	animation: clefa-spin 0.7s linear infinite;
+}
+
+@keyframes clefa-spin { to { transform: rotate(360deg); } }
+
+/* ---- Results container states ---- */
+[data-clefa-filter-results][data-clefa-loading="1"] {
+	opacity: 0.5;
+	pointer-events: none;
+	transition: opacity 0.2s;
+}
+
+/* ---- Result items (default template) ---- */
+.clefa-filter-results-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 1.5rem;
+}
+
+.clefa-filter-result-item {
+	background: #fff;
+	border: 1px solid var(--clefa-border, #e2e8f0);
+	border-radius: var(--clefa-radius, 6px);
+	overflow: hidden;
+}
+
+.clefa-filter-result-thumb img {
+	width: 100%;
+	height: 180px;
+	object-fit: cover;
+	display: block;
+}
+
+.clefa-filter-result-body {
+	padding: 1rem;
+}
+
+.clefa-filter-result-title {
+	margin: 0 0 0.5rem;
+	font-size: 1rem;
+}
+
+.clefa-filter-result-title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.clefa-filter-result-title a:hover { text-decoration: underline; }
+
+.clefa-filter-result-excerpt {
+	font-size: 0.875rem;
+	color: var(--clefa-text-muted, #94a3b8);
+}
+
+.clefa-filter-no-results {
+	padding: 2rem;
+	text-align: center;
+	color: var(--clefa-text-muted, #94a3b8);
+}
+
+/* ---- Pagination ---- */
+.clefa-filter-pagination {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 0.375rem;
+	margin-top: 2rem;
+}
+
+.clefa-page-btn {
+	min-width: 36px;
+	height: 36px;
+	padding: 0 0.5rem;
+	border: 1px solid var(--clefa-border, #e2e8f0);
+	border-radius: var(--clefa-radius, 6px);
+	background: #fff;
+	cursor: pointer;
+	font-size: 0.875rem;
+	color: var(--clefa-text, #333);
+	transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.clefa-page-btn:hover {
+	background: var(--clefa-primary, #3b82f6);
+	border-color: var(--clefa-primary, #3b82f6);
+	color: #fff;
+}
+
+.clefa-page-btn.clefa-page-active {
+	background: var(--clefa-primary, #3b82f6);
+	border-color: var(--clefa-primary, #3b82f6);
+	color: #fff;
+	font-weight: 600;
+}
+
+.clefa-filter-load-more-wrap {
+	text-align: center;
+	margin-top: 2rem;
+}
+
+/* =====================================================================
+   Mobile Drawer Mode
+   ===================================================================== */
+
+/* Toggle button — hidden on desktop, visible on mobile */
+.clefa-filter-mobile-toggle {
+	display: none;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.55rem 1.1rem;
+	border: 1px solid var(--clefa-border, #e2e8f0);
+	border-radius: var(--clefa-radius, 6px);
+	background: #fff;
+	cursor: pointer;
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: var(--clefa-text, #333);
+	transition: background 0.15s, border-color 0.15s;
+}
+
+.clefa-filter-mobile-toggle:hover {
+	background: var(--clefa-primary-light, #eff6ff);
+	border-color: var(--clefa-primary, #3b82f6);
+}
+
+.clefa-filter-mobile-toggle-icon {
+	display: inline-block;
+	width: 16px;
+	height: 12px;
+	border-top: 2px solid currentColor;
+	border-bottom: 2px solid currentColor;
+	position: relative;
+}
+.clefa-filter-mobile-toggle-icon::before {
+	content: '';
+	display: block;
+	width: 100%;
+	height: 2px;
+	background: currentColor;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+/* Backdrop */
+.clefa-filter-backdrop {
+	display: none;
+	position: fixed;
+	inset: 0;
+	background: rgba(0,0,0,0.45);
+	z-index: 1000;
+	transition: opacity 0.25s;
+}
+.clefa-filter-has-drawer[data-clefa-mobile-open] .clefa-filter-backdrop {
+	display: block;
+}
+
+/* Drawer form panel */
+.clefa-filter-has-drawer .clefa-filter-form {
+	transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Drawer header */
+.clefa-filter-drawer-header {
+	display: none;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1rem 1.25rem;
+	border-bottom: 1px solid var(--clefa-border, #e2e8f0);
+}
+
+.clefa-filter-drawer-title {
+	font-weight: 600;
+	font-size: 1rem;
+}
+
+.clefa-filter-drawer-close {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 1.2rem;
+	color: var(--clefa-text, #333);
+	padding: 0.25rem;
+	line-height: 1;
+	transition: opacity 0.15s;
+}
+.clefa-filter-drawer-close:hover {
+	opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+	.clefa-filter-has-drawer .clefa-filter-mobile-toggle {
+		display: flex;
+	}
+
+	/* Drawer header visible inside the panel on mobile */
+	.clefa-filter-has-drawer .clefa-filter-drawer-header {
+		display: flex;
+	}
+
+	/* The form panel becomes a fixed off-canvas drawer */
+	.clefa-filter-has-drawer .clefa-filter-form {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: min(320px, 85vw);
+		height: 100%;
+		overflow-y: auto;
+		background: #fff;
+		z-index: 1001;
+		transform: translateX(-100%);
+		box-shadow: 4px 0 24px rgba(0,0,0,0.12);
+		padding-bottom: 2rem;
+	}
+
+	/* Open state */
+	.clefa-filter-has-drawer[data-clefa-mobile-open] .clefa-filter-form {
+		transform: translateX(0);
+	}
+
+	/* Hide desktop-only chips bar in drawer mode on mobile
+	   (chips are visible above the toggle button) */
+	.clefa-filter-has-drawer .clefa-filter-chips-bar {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.35rem;
+		margin-bottom: 0.5rem;
+	}
+}

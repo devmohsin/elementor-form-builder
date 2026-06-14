@@ -1,0 +1,15 @@
+{
+  "name": "elementor-form-builder-tests",
+  "private": true,
+  "description": "Jest test suite for CLEFA frontend JS modules",
+  "scripts": {
+    "test":       "jest --coverage --config dev/jest.config.js",
+    "test:watch": "jest --watch --config dev/jest.config.js",
+    "test:ci":    "jest --ci --coverage --coverageReporters=text-summary --config dev/jest.config.js"
+  },
+  "devDependencies": {
+    "jest":                   "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "@jest/globals":          "^29.7.0"
+  }
+}
