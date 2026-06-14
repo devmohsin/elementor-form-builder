@@ -329,10 +329,9 @@ class CLEFA_Assets {
 				'label'  => __( 'Structure', 'codelinden-elementor-form-addon' ),
 				'fields' => array(
 					// Native repeater — does not require ACF; maps to ACF Repeater via actions when ACF Pro is active.
-					array( 'type' => 'repeater',    'label' => __( 'Repeater', 'codelinden-elementor-form-addon' ),     'icon' => 'dashicons-controls-repeat' ),
-					array( 'type' => 'grid_break',  'label' => __( 'Grid / Column Break', 'codelinden-elementor-form-addon' ), 'icon' => 'dashicons-grid-view' ),
-					array( 'type' => 'heading',     'label' => __( 'Section Heading', 'codelinden-elementor-form-addon' ), 'icon' => 'dashicons-heading' ),
-					array( 'type' => 'button',      'label' => __( 'Button', 'codelinden-elementor-form-addon' ),      'icon' => 'dashicons-button' ),
+					array( 'type' => 'repeater',   'label' => __( 'Repeater', 'codelinden-elementor-form-addon' ),          'icon' => 'dashicons-controls-repeat' ),
+					array( 'type' => 'grid_break', 'label' => __( 'Grid / Column Break', 'codelinden-elementor-form-addon' ), 'icon' => 'dashicons-grid-view' ),
+					array( 'type' => 'heading',    'label' => __( 'Section Heading', 'codelinden-elementor-form-addon' ),    'icon' => 'dashicons-heading' ),
 				),
 			),
 		);

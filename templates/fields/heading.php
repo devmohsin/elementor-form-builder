@@ -9,9 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $label       = $field['label']       ?? '';
 $description = $field['description'] ?? '';
-$tag         = in_array( $field['heading_tag'] ?? 'h3', array( 'h2', 'h3', 'h4', 'h5', 'h6', 'p' ), true )
-               ? $field['heading_tag']
-               : 'h3';
+$allowed_tags = array( 'h2', 'h3', 'h4', 'h5', 'h6', 'p' );
+$tag          = in_array( $field['heading_tag'] ?? '', $allowed_tags, true )
+                ? $field['heading_tag']
+                : 'h3';
 ?>
 <div class="clefa-section-heading">
 	<?php if ( $label ) : ?>
