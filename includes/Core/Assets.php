@@ -226,7 +226,7 @@ class CLEFA_Assets {
 		wp_register_script(
 			'clefa-upload-manager',
 			CLEFA_ASSET_URL . 'frontend/js/UploadManager.js',
-			array( 'clefa-event-dispatcher' ),
+			array( 'clefa-event-dispatcher', 'clefa-form-engine' ),
 			CLEFA_PLUGIN_VERSION,
 			true
 		);
