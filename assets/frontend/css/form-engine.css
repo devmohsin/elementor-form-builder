@@ -256,46 +256,89 @@
 /* ---- Range Slider ---- */
 .clefa-range-wrap {
 	display: flex;
+	flex-direction: column;
+	gap: 0.625rem;
+}
+
+.clefa-range-header {
+	display: flex;
 	align-items: center;
-	gap: 1rem;
+	justify-content: space-between;
+	font-size: 0.8125rem;
 }
 
-.clefa-range {
-	flex: 1;
-	height: 4px;
-	border-radius: 2px;
-	appearance: none;
-	background: var(--clefa-border);
-	outline: none;
-	cursor: pointer;
+.clefa-range-minmax {
+	color: var(--clefa-text-muted);
+	min-width: 2rem;
 }
 
-.clefa-range::-webkit-slider-thumb {
-	appearance: none;
-	width: 18px;
-	height: 18px;
-	border-radius: 50%;
-	background: var(--clefa-primary);
-	border: none;
-	cursor: grab;
-	box-shadow: var(--clefa-shadow-sm);
+.clefa-range-minmax-max {
+	text-align: right;
 }
 
-.clefa-range::-moz-range-thumb {
-	width: 18px;
-	height: 18px;
-	border-radius: 50%;
-	background: var(--clefa-primary);
-	border: none;
-	cursor: grab;
+.clefa-range-current-wrap {
+	display: flex;
+	align-items: baseline;
+	gap: 2px;
 }
 
 .clefa-range-value {
-	min-width: 2.5rem;
-	text-align: center;
-	font-weight: 600;
-	font-size: 0.9375rem;
+	font-weight: 700;
+	font-size: 1.0625rem;
 	color: var(--clefa-primary);
+	min-width: 2rem;
+	text-align: center;
+}
+
+.clefa-range {
+	width: 100%;
+	height: 6px;
+	border-radius: 3px;
+	appearance: none;
+	-webkit-appearance: none;
+	outline: none;
+	cursor: pointer;
+	background: linear-gradient(
+		to right,
+		var(--clefa-primary) 0%,
+		var(--clefa-primary) var(--clefa-range-pct, 0%),
+		var(--clefa-border)  var(--clefa-range-pct, 0%),
+		var(--clefa-border)  100%
+	);
+}
+
+.clefa-range::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #fff;
+	border: 2.5px solid var(--clefa-primary);
+	cursor: grab;
+	box-shadow: 0 1px 4px rgba(0,0,0,.18);
+	transition: transform 0.1s;
+}
+
+.clefa-range::-webkit-slider-thumb:active {
+	cursor: grabbing;
+	transform: scale(1.15);
+}
+
+.clefa-range::-moz-range-thumb {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #fff;
+	border: 2.5px solid var(--clefa-primary);
+	cursor: grab;
+	box-shadow: 0 1px 4px rgba(0,0,0,.18);
+}
+
+.clefa-range::-moz-range-progress {
+	background: var(--clefa-primary);
+	height: 6px;
+	border-radius: 3px;
 }
 
 /* ---- Dual Range Slider ---- */

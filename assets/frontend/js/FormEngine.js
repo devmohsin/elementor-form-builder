@@ -118,12 +118,26 @@
 	/* ------------------------------------------------------------------ */
 
 	function initRangeOutputs( formEl ) {
+		// Sync fill gradient on page load for all single-range inputs
+		formEl.querySelectorAll( 'input[type="range"].clefa-range' ).forEach( function( input ) {
+			updateRangeFill( input );
+		} );
+
 		formEl.addEventListener( 'input', function ( e ) {
 			if ( e.target.type !== 'range' ) return;
 			var id  = e.target.id;
 			var out = id && formEl.querySelector( 'output[for="' + id + '"][data-clefa-range-output]' );
 			if ( out ) out.textContent = e.target.value;
+			updateRangeFill( e.target );
 		} );
+	}
+
+	function updateRangeFill( input ) {
+		var min = parseFloat( input.min ) || 0;
+		var max = parseFloat( input.max ) || 100;
+		var val = parseFloat( input.value );
+		var pct = max > min ? ( ( val - min ) / ( max - min ) ) * 100 : 0;
+		input.style.setProperty( '--clefa-range-pct', pct.toFixed( 2 ) + '%' );
 	}
 
 	/* ------------------------------------------------------------------ */
