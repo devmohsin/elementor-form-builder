@@ -32,7 +32,7 @@ class CLEFA_Form_Renderer {
 		if ( $config_step_count > 1 || ! empty( $feature_map['has_steps'] ) ) {
 			wp_enqueue_script( 'clefa-step-router' );
 		}
-		if ( ! empty( $feature_map['has_uploads'] ) ) {
+		if ( ! empty( $feature_map['has_uploads'] ) || self::config_has_field_type( $config, array( 'file', 'multi_file' ) ) ) {
 			wp_enqueue_script( 'clefa-upload-manager' );
 		}
 		if ( ! empty( $feature_map['has_live_checks'] ) ) {
@@ -174,6 +174,20 @@ class CLEFA_Form_Renderer {
 			}
 		}
 		return $conditions;
+	}
+
+	/**
+	 * Check whether any field in the config matches one of the given field types.
+	 */
+	public static function config_has_field_type( array $config, array $types ) {
+		foreach ( ( $config['steps'] ?? array() ) as $step ) {
+			foreach ( ( $step['fields'] ?? array() ) as $field ) {
+				if ( in_array( $field['field_type'] ?? '', $types, true ) ) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
