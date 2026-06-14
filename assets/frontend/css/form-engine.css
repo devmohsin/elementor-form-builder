@@ -103,7 +103,8 @@
 }
 
 .clefa-input-number {
-	max-width: 200px;
+	width: 100%;
+	max-width: 100%;
 }
 
 /* ---- Error Messages ---- */
@@ -706,6 +707,34 @@
 /* ---- HTML Block ---- */
 .clefa-html-block {
 	line-height: 1.6;
+}
+
+/* ---- Section Heading ---- */
+.clefa-section-heading {
+	margin-bottom: 0.25rem;
+}
+
+.clefa-section-heading-title {
+	font-size: 1.0625rem;
+	font-weight: 600;
+	color: var(--clefa-text);
+	margin: 0 0 0.25rem;
+	padding: 0;
+	line-height: 1.3;
+}
+
+.clefa-section-heading-desc {
+	font-size: 0.875rem;
+	color: var(--clefa-text-muted);
+	margin: 0;
+	line-height: 1.5;
+}
+
+/* ---- Standalone Button Field ---- */
+.clefa-btn-field {
+	display: inline-flex;
+	align-items: center;
+	text-decoration: none;
 }
 
 /* ---- Progress Bar ---- */
