@@ -497,6 +497,7 @@
 
 	function initRepeaters( scope ) {
 		scope.querySelectorAll( '[data-clefa-repeater]' ).forEach( function( wrap ) {
+			var fieldId  = wrap.getAttribute( 'data-clefa-repeater' );
 			var minRows  = parseInt( wrap.getAttribute( 'data-clefa-repeater-min' ), 10 ) || 0;
 			var maxRows  = parseInt( wrap.getAttribute( 'data-clefa-repeater-max' ), 10 ) || 0;
 			var rowsWrap = wrap.querySelector( '[data-clefa-repeater-rows]' );
