@@ -119,13 +119,24 @@
 	function makeField( type ) {
 		const id    = uid();
 		const label = getFieldLabel( type );
-		return {
+		const base  = {
 			field_id: id, field_type: type, label: label,
 			placeholder: '', description: '', default_value: '',
 			required: false, readonly: false, disabled: false, hidden: false,
 			css_class: '', wrapper_class: '',
 			validation_rules: [], conditions: [], mapping: {}, options: [], live_check: {}, advanced: {},
 		};
+		if ( type === 'repeater' ) {
+			base.sub_fields = [];
+			base.min_rows   = 1;
+			base.max_rows   = 10;
+			base.layout     = 'stack';
+		}
+		return base;
+	}
+
+	function makeSubField( type ) {
+		return { field_id: uid(), field_type: type || 'text', label: 'Field', placeholder: '', required: false };
 	}
 
 	function getFieldLabel( type ) {
@@ -746,6 +757,10 @@
 			html += `<div class="clefa-panel-field-row"><label>Content <small>(HTML allowed)</small></label><textarea rows="6" style="font-family:monospace;font-size:.8rem;" data-clefa-field-key="content" data-clefa-field-id="${esc(field.field_id)}">${esc(field.content||'')}</textarea></div>`;
 		}
 
+		if ( field.field_type === 'repeater' ) {
+			html += renderRepeaterSubFieldsSection( field );
+		}
+
 		return html;
 	}
 
@@ -765,6 +780,42 @@
 		html += '</div>';
 		html += '<button type="button" class="clefa-btn clefa-btn-xs clefa-btn-outline" style="margin-top:6px;" data-clefa-action="add-option" data-clefa-field-id="' + esc(field.field_id) + '"><span class="dashicons dashicons-plus-alt2"></span> Add Option</button>';
 		html += '</div>';
+		return html;
+	}
+
+	function renderRepeaterSubFieldsSection( field ) {
+		const subs  = field.sub_fields || [];
+		const fid   = esc( field.field_id );
+		const types = ['text','email','number','textarea','select','checkbox','radio','date','phone','url'];
+
+		let html = `<div class="clefa-panel-field-row"><label>Layout</label>
+			<select data-clefa-field-key="layout" data-clefa-field-id="${fid}">
+				<option value="stack"${(field.layout||'stack')==='stack'?' selected':''}>Stack (vertical)</option>
+				<option value="inline"${field.layout==='inline'?' selected':''}>Inline (horizontal)</option>
+			</select></div>`;
+
+		html += `<div class="clefa-panel-field-row"><label>Min rows</label>
+			<input type="number" min="0" max="20" value="${esc(String(field.min_rows||1))}" data-clefa-field-key="min_rows" data-clefa-field-id="${fid}" /></div>`;
+
+		html += `<div class="clefa-panel-field-row"><label>Max rows <small>(0 = unlimited)</small></label>
+			<input type="number" min="0" max="100" value="${esc(String(field.max_rows||10))}" data-clefa-field-key="max_rows" data-clefa-field-id="${fid}" /></div>`;
+
+		html += `<div class="clefa-panel-field-row"><label>Sub-fields</label>`;
+		html += `<div data-clefa-role="subfields-list" data-clefa-field-id="${fid}" style="display:flex;flex-direction:column;gap:6px;margin-bottom:6px;">`;
+
+		subs.forEach( ( sf, i ) => {
+			const typeOpts = types.map( t => `<option value="${t}"${sf.field_type===t?' selected':''}>${t}</option>` ).join('');
+			html += `<div class="clefa-subfield-row" data-clefa-subfield-index="${i}" style="display:flex;gap:6px;align-items:center;background:var(--clefa-surface-alt,#f8fafc);border:1px solid var(--clefa-border,#e2e8f0);border-radius:5px;padding:6px 8px;">
+				<select data-clefa-subfield-key="field_type" data-clefa-subfield-index="${i}" data-clefa-field-id="${fid}" style="flex:0 0 90px;font-size:.75rem;">${typeOpts}</select>
+				<input type="text" placeholder="Label" value="${esc(sf.label||'')}" data-clefa-subfield-key="label" data-clefa-subfield-index="${i}" data-clefa-field-id="${fid}" style="flex:1;min-width:0;" />
+				<input type="text" placeholder="Placeholder" value="${esc(sf.placeholder||'')}" data-clefa-subfield-key="placeholder" data-clefa-subfield-index="${i}" data-clefa-field-id="${fid}" style="flex:1;min-width:0;" />
+				<button type="button" class="clefa-btn clefa-btn-xs clefa-btn-danger-ghost" data-clefa-action="delete-repeater-subfield" data-clefa-subfield-index="${i}" data-clefa-field-id="${fid}" title="Remove sub-field"><span class="dashicons dashicons-trash"></span></button>
+			</div>`;
+		} );
+
+		html += `</div>`;
+		html += `<button type="button" class="clefa-btn clefa-btn-xs clefa-btn-outline" data-clefa-action="add-repeater-subfield" data-clefa-field-id="${fid}"><span class="dashicons dashicons-plus-alt2"></span> Add Sub-field</button>`;
+		html += `</div>`;
 		return html;
 	}
 
@@ -1156,6 +1207,8 @@
 			case 'delete-validation-rule': deleteValidationRuleFromField( target.getAttribute('data-clefa-field-id'), parseInt( target.getAttribute('data-clefa-vrule-index'), 10 ) ); break;
 			case 'add-option':       addOptionToField( target.getAttribute('data-clefa-field-id') ); break;
 			case 'delete-option':    deleteOption( target ); break;
+			case 'add-repeater-subfield':    addRepeaterSubField( target.getAttribute('data-clefa-field-id') ); break;
+			case 'delete-repeater-subfield': deleteRepeaterSubField( target.getAttribute('data-clefa-field-id'), parseInt( target.getAttribute('data-clefa-subfield-index'), 10 ) ); break;
 		}
 	}
 
@@ -1435,6 +1488,16 @@
 				markDirty();
 			});
 		});
+
+		// Repeater sub-field inline inputs
+		sections.querySelectorAll( '[data-clefa-subfield-key]' ).forEach( el => {
+			const handler = () => {
+				syncRepeaterSubFields( field.field_id, sections );
+				markDirty();
+			};
+			el.addEventListener( 'input', handler );
+			el.addEventListener( 'change', handler );
+		} );
 	}
 
 	function bindStepPanelEvents( sections, step ) {
@@ -1653,6 +1716,42 @@
 		result.field.options.push({ value: '', label: 'Option ' + ( result.field.options.length + 1 ) });
 		markDirty();
 		openFieldPanel( fieldId );
+	}
+
+	function addRepeaterSubField( fieldId ) {
+		const result = findField( fieldId );
+		if ( ! result ) { return; }
+		result.field.sub_fields = result.field.sub_fields || [];
+		result.field.sub_fields.push( makeSubField( 'text' ) );
+		markDirty();
+		openFieldPanel( fieldId );
+	}
+
+	function deleteRepeaterSubField( fieldId, index ) {
+		const result = findField( fieldId );
+		if ( ! result ) { return; }
+		if ( ! result.field.sub_fields ) { return; }
+		result.field.sub_fields.splice( index, 1 );
+		markDirty();
+		openFieldPanel( fieldId );
+	}
+
+	function syncRepeaterSubFields( fieldId, sections ) {
+		const result = findField( fieldId );
+		if ( ! result ) { return; }
+		const rows = sections.querySelectorAll( '[data-clefa-subfield-index]' );
+		const byIndex = {};
+		rows.forEach( el => {
+			const idx = parseInt( el.getAttribute('data-clefa-subfield-index'), 10 );
+			const key = el.getAttribute('data-clefa-subfield-key');
+			if ( isNaN(idx) || ! key ) { return; }
+			if ( ! byIndex[ idx ] ) { byIndex[ idx ] = {}; }
+			byIndex[ idx ][ key ] = el.value;
+		} );
+		Object.keys( byIndex ).forEach( idx => {
+			const sf = ( result.field.sub_fields || [] )[ idx ];
+			if ( sf ) { Object.assign( sf, byIndex[ idx ] ); }
+		} );
 	}
 
 	function deleteOption( btn ) {
