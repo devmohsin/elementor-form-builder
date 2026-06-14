@@ -120,6 +120,8 @@ class CLEFA_Upload_Handler {
 		do_action( 'clefa_upload_completed', $temp_token, $field_id, $form_id, $file );
 
 		return rest_ensure_response( array(
+			'success'    => true,
+			'temp_id'    => $temp_token,
 			'file_name'  => sanitize_file_name( $file['name'] ),
 			'file_size'  => $file['size'],
 			'file_url'   => $temp_url,
