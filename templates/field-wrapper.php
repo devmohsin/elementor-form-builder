@@ -70,6 +70,7 @@ $cond_json = ! empty( $conditions ) ? esc_attr( wp_json_encode( $conditions ) ) 
 	<label
 		class="clefa-label"
 		for="clefa-field-<?php echo esc_attr( $field_id ); ?>"
+		data-clefa-field-label
 	>
 		<?php echo esc_html( $label_text ); ?>
 		<?php if ( $required ) : ?>
@@ -94,7 +95,7 @@ $cond_json = ! empty( $conditions ) ? esc_attr( wp_json_encode( $conditions ) ) 
 
 	<?php /* ── Help / hint text (22.1: "Below input") ── */ ?>
 	<?php if ( $help_text ) : ?>
-	<p class="clefa-field-help" id="clefa-help-<?php echo esc_attr( $field_id ); ?>">
+	<p class="clefa-field-help" id="clefa-help-<?php echo esc_attr( $field_id ); ?>" data-clefa-field-desc>
 		<?php echo wp_kses_post( $help_text ); ?>
 	</p>
 	<?php endif; ?>
