@@ -1317,6 +1317,7 @@
 
 		// Validation rule — rule-key selector (triggers re-render to update value input)
 		if ( el.matches('[data-clefa-vrule-rule]') ) {
+			if ( e.type !== 'change' ) { return; }
 			const fieldId = el.getAttribute('data-clefa-field-id');
 			const idx     = parseInt( el.getAttribute('data-clefa-vrule-index'), 10 );
 			const result  = findField( fieldId );
@@ -1354,7 +1355,7 @@
 		}
 
 		// Validation rule — value / message fields (inline update, no re-render)
-		if ( el.matches('[data-clefa-vrule-key]') ) {
+		if ( e.type === 'change' && el.matches('[data-clefa-vrule-key]') ) {
 			const fieldId = el.getAttribute('data-clefa-field-id');
 			const idx     = parseInt( el.getAttribute('data-clefa-vrule-index'), 10 );
 			const key     = el.getAttribute('data-clefa-vrule-key');
