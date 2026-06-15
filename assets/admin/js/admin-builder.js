@@ -873,6 +873,8 @@
 					valueInput = `<select data-clefa-vrule-key="value" data-clefa-vrule-index="${idx}" data-clefa-field-id="${fid}">
 						${schemaDef.value_options.map( o => `<option value="${esc(o.value)}"${String(ruleValue)===o.value?' selected':''}>${esc(o.label)}</option>` ).join('')}
 					</select>`;
+				} else if ( schemaDef.value_type === 'date' ) {
+					valueInput = `<input type="date" value="${esc(String(ruleValue))}" data-clefa-vrule-key="value" data-clefa-vrule-index="${idx}" data-clefa-field-id="${fid}" />`;
 				} else {
 					valueInput = `<input type="text" value="${esc(String(ruleValue))}" placeholder="${esc(schemaDef.value_placeholder||'')}" data-clefa-vrule-key="value" data-clefa-vrule-index="${idx}" data-clefa-field-id="${fid}" />`;
 				}
@@ -1393,6 +1395,18 @@
 		if ( el.matches('.clefa-step-name-input') ) {
 			const stepId = el.closest('[data-clefa-step-id]')?.getAttribute('data-clefa-step-id');
 			if ( stepId ) { updateStepKeyValue( stepId, 'step_name', el.value ); markDirty(); }
+		}
+
+		// Save vrule value/message on every keystroke so clicking Save without blurring still persists
+		if ( el.matches('[data-clefa-vrule-key]') ) {
+			const fieldId = el.getAttribute('data-clefa-field-id');
+			const idx     = parseInt( el.getAttribute('data-clefa-vrule-index'), 10 );
+			const key     = el.getAttribute('data-clefa-vrule-key');
+			const result  = findField( fieldId );
+			if ( result && result.field.validation_rules[ idx ] ) {
+				result.field.validation_rules[ idx ][ key ] = el.value;
+				markDirty();
+			}
 		}
 
 		// Live update for range sliders and color pickers in style overrides
