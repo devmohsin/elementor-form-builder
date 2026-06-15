@@ -354,6 +354,9 @@
 					? 'Please select no more than ' + max + ' option(s).'
 					: null;
 			} );
+
+			R.register( 'min_checked', R._rules.checkbox_min );
+			R.register( 'max_checked', R._rules.checkbox_max );
 		},
 	};
 
