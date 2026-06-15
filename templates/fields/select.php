@@ -33,8 +33,8 @@ $select_cls  = 'clefa-input clefa-select' . ( $use_select2 ? ' clefa-select2-inp
 	<option value=""><?php echo esc_html( $placeholder ); ?></option>
 	<?php endif; ?>
 	<?php foreach ( $options as $opt ) :
-		$opt_val   = $opt['value']   ?? $opt['label'] ?? '';
-		$opt_label = $opt['label']   ?? $opt_val;
+		$opt_val   = is_string( $opt ) ? $opt : ( $opt['value'] ?? $opt['label'] ?? '' );
+		$opt_label = ( ! is_string( $opt ) && ! empty( $opt['label'] ) ) ? $opt['label'] : $opt_val;
 		$is_sel    = in_array( (string) $opt_val, $selected, true );
 	?>
 	<option value="<?php echo esc_attr( $opt_val ); ?>"<?php selected( $is_sel ); ?>><?php echo esc_html( $opt_label ); ?></option>
