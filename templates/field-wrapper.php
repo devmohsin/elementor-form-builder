@@ -34,7 +34,19 @@ $required        = ! empty( $field['required'] );
 $hide_label      = ! empty( $field['hide_label'] );
 $notice_before   = $field['notice_before'] ?? '';   // Notice shown above the label
 $notice_after    = $field['notice_after']  ?? '';   // Notice shown below the input
-$help_text       = $field['help_text'] ?? $field['description'] ?? '';   // Small helper text below input
+$help_text          = $field['help_text'] ?? $field['description'] ?? '';   // Small helper text below input
+$desc_font_size     = isset( $field['description_font_size'] ) ? (int) $field['description_font_size'] : 0;
+$desc_color         = isset( $field['description_color'] ) ? trim( $field['description_color'] ) : '';
+$desc_max_length    = isset( $field['description_max_length'] ) ? (int) $field['description_max_length'] : 0;
+// Truncate description if max length set
+if ( $desc_max_length > 0 && mb_strlen( wp_strip_all_tags( $help_text ) ) > $desc_max_length ) {
+	$help_text = esc_html( mb_substr( wp_strip_all_tags( $help_text ), 0, $desc_max_length ) ) . '&hellip;';
+}
+// Build inline style for description element
+$desc_style_parts = array();
+if ( $desc_font_size > 0 ) { $desc_style_parts[] = 'font-size:' . $desc_font_size . 'px'; }
+if ( $desc_color !== '' )  { $desc_style_parts[] = 'color:' . esc_attr( $desc_color ); }
+$desc_inline_style = $desc_style_parts ? ' style="' . implode( ';', $desc_style_parts ) . '"' : '';
 $has_error       = ! empty( $errors[ $field_id ] );
 $error_msg       = $has_error ? (string) reset( $errors[ $field_id ] ) : '';
 $custom_class    = sanitize_html_class( $field['custom_class'] ?? '' );
@@ -95,7 +107,7 @@ $cond_json = ! empty( $conditions ) ? esc_attr( wp_json_encode( $conditions ) ) 
 
 	<?php /* ── Help / hint text (22.1: "Below input") ── */ ?>
 	<?php if ( $help_text ) : ?>
-	<p class="clefa-field-help" id="clefa-help-<?php echo esc_attr( $field_id ); ?>" data-clefa-field-desc>
+	<p class="clefa-field-help" id="clefa-help-<?php echo esc_attr( $field_id ); ?>" data-clefa-field-desc<?php echo $desc_inline_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 		<?php echo wp_kses_post( $help_text ); ?>
 	</p>
 	<?php endif; ?>
