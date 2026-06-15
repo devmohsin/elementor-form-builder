@@ -729,7 +729,7 @@
 		let html = `
 			<div class="clefa-panel-field-row"><label>Field ID <small>(stable, used in logic)</small></label><input type="text" value="${esc(field.field_id)}" data-clefa-field-key="field_id" data-clefa-field-id="${esc(field.field_id)}" /></div>
 			<div class="clefa-panel-field-row"><label>Label</label><input type="text" value="${esc(field.label||'')}" data-clefa-field-key="label" data-clefa-field-id="${esc(field.field_id)}" /></div>
-			<div class="clefa-panel-field-row"><label>Placeholder</label><input type="text" value="${esc(field.placeholder||'')}" data-clefa-field-key="placeholder" data-clefa-field-id="${esc(field.field_id)}" /></div>
+			${ ! [ 'checkbox', 'radio', 'html', 'range', 'range_dual', 'file', 'multi_file', 'heading', 'grid_break' ].includes( field.field_type ) ? `<div class="clefa-panel-field-row"><label>Placeholder</label><input type="text" value="${esc(field.placeholder||'')}" data-clefa-field-key="placeholder" data-clefa-field-id="${esc(field.field_id)}" /></div>` : '' }
 			<div class="clefa-panel-field-row"><label>Description (below input)</label><input type="text" value="${esc(field.description||'')}" data-clefa-field-key="description" data-clefa-field-id="${esc(field.field_id)}" /></div>
 			<div class="clefa-panel-field-row"><label>Default Value</label><input type="text" value="${esc(field.default_value||'')}" data-clefa-field-key="default_value" data-clefa-field-id="${esc(field.field_id)}" /></div>
 			<div class="clefa-panel-field-row clefa-panel-field-row-toggle">
