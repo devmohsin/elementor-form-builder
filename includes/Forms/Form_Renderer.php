@@ -196,7 +196,8 @@ class CLEFA_Form_Renderer {
 	public static function config_has_select2( array $config ) {
 		foreach ( ( $config['steps'] ?? array() ) as $step ) {
 			foreach ( ( $step['fields'] ?? array() ) as $field ) {
-				if ( ( $field['field_type'] ?? '' ) === 'select' && ! empty( $field['use_select2'] ) ) {
+				$type = $field['field_type'] ?? '';
+				if ( $type === 'select2' || ( $type === 'select' && ! empty( $field['use_select2'] ) ) ) {
 					return true;
 				}
 			}
