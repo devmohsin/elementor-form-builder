@@ -905,13 +905,21 @@
 		return html;
 	}
 
+	function refreshValidationSection( fieldId ) {
+		const result = findField( fieldId );
+		if ( ! result ) { return; }
+		const body = document.querySelector( '[data-clefa-section="validation"] .clefa-accordion-body' );
+		if ( ! body ) { openFieldPanel( fieldId ); return; }
+		body.innerHTML = renderValidationSection( result.field );
+	}
+
 	function addValidationRuleToField( fieldId, defaultRuleKey ) {
 		const result = findField( fieldId );
 		if ( ! result ) { return; }
 		result.field.validation_rules = result.field.validation_rules || [];
 		result.field.validation_rules.push( { rule: defaultRuleKey || '', value: '', message: '' } );
 		markDirty();
-		openFieldPanel( fieldId );
+		refreshValidationSection( fieldId );
 	}
 
 	function deleteValidationRuleFromField( fieldId, idx ) {
@@ -920,7 +928,7 @@
 		result.field.validation_rules = result.field.validation_rules || [];
 		result.field.validation_rules.splice( idx, 1 );
 		markDirty();
-		openFieldPanel( fieldId );
+		refreshValidationSection( fieldId );
 	}
 
 	function renderConditionsSection( field ) {
@@ -1316,7 +1324,7 @@
 				result.field.validation_rules[ idx ].rule  = el.value;
 				result.field.validation_rules[ idx ].value = '';
 				markDirty();
-				openFieldPanel( fieldId );
+				refreshValidationSection( fieldId );
 			}
 			return;
 		}
