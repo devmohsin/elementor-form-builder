@@ -184,41 +184,45 @@
 			} );
 
 			R.register( 'date_after_today', function ( value ) {
-				var ts = Date.parse( String( value ) );
-				if ( isNaN( ts ) ) { return null; }
-				var today = new Date();
-				today.setHours( 0, 0, 0, 0 );
-				return ts <= today.getTime()
+				var v = String( value );
+				if ( ! v ) { return null; }
+				var d = new Date();
+				var today = d.getFullYear() + '-' +
+					String( d.getMonth() + 1 ).padStart( 2, '0' ) + '-' +
+					String( d.getDate() ).padStart( 2, '0' );
+				return v <= today
 					? 'Date must be after today.'
 					: null;
 			} );
 
 			R.register( 'date_before_today', function ( value ) {
-				var ts = Date.parse( String( value ) );
-				if ( isNaN( ts ) ) { return null; }
-				var today = new Date();
-				today.setHours( 0, 0, 0, 0 );
-				return ts >= today.getTime()
+				var v = String( value );
+				if ( ! v ) { return null; }
+				var d = new Date();
+				var today = d.getFullYear() + '-' +
+					String( d.getMonth() + 1 ).padStart( 2, '0' ) + '-' +
+					String( d.getDate() ).padStart( 2, '0' );
+				return v >= today
 					? 'Date must be before today.'
 					: null;
 			} );
 
 			R.register( 'date_after', function ( value, param ) {
 				if ( ! param ) { return null; }
-				var ts        = Date.parse( String( value ) );
-				var threshold = Date.parse( String( param ) );
-				if ( isNaN( ts ) || isNaN( threshold ) ) { return null; }
-				return ts <= threshold
+				var v = String( value );
+				var p = String( param );
+				if ( ! v ) { return null; }
+				return v <= p
 					? 'Date must be after ' + param + '.'
 					: null;
 			} );
 
 			R.register( 'date_before', function ( value, param ) {
 				if ( ! param ) { return null; }
-				var ts        = Date.parse( String( value ) );
-				var threshold = Date.parse( String( param ) );
-				if ( isNaN( ts ) || isNaN( threshold ) ) { return null; }
-				return ts >= threshold
+				var v = String( value );
+				var p = String( param );
+				if ( ! v ) { return null; }
+				return v >= p
 					? 'Date must be before ' + param + '.'
 					: null;
 			} );
