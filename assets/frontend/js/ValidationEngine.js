@@ -395,24 +395,35 @@
 	ValidationEngine.prototype.init = function () {
 		var self = this;
 
+		function resolveFieldId( target ) {
+			if ( target.hasAttribute( 'data-clefa-input' ) ) {
+				return target.getAttribute( 'data-clefa-field-id' );
+			}
+			// Input inside a group wrapper (checkbox / radio individual inputs)
+			var group = target.closest( '[data-clefa-input]' );
+			return group ? group.getAttribute( 'data-clefa-field-id' ) : null;
+		}
+
 		self.formEl.addEventListener( 'blur', function ( e ) {
-			if ( e.target.hasAttribute( 'data-clefa-input' ) ) {
-				var fieldId = e.target.getAttribute( 'data-clefa-field-id' );
-				if ( fieldId ) {
-					self._validateField( fieldId, self._getFieldValue( fieldId ) );
-					self._updateStepButtonStates( e.target.closest( '[data-clefa-step]' ) );
-				}
+			var fieldId = resolveFieldId( e.target );
+			if ( fieldId ) {
+				self._validateField( fieldId, self._getFieldValue( fieldId ) );
+				self._updateStepButtonStates( e.target.closest( '[data-clefa-step]' ) );
 			}
 		}, true );
 
 		self.formEl.addEventListener( 'input', function ( e ) {
-			if ( e.target.hasAttribute( 'data-clefa-input' ) ) {
+			var fieldId = resolveFieldId( e.target );
+			if ( fieldId ) {
 				self._updateStepButtonStates( e.target.closest( '[data-clefa-step]' ) );
 			}
 		} );
 
+		// Validate on change — essential for checkbox/radio/select
 		self.formEl.addEventListener( 'change', function ( e ) {
-			if ( e.target.hasAttribute( 'data-clefa-input' ) ) {
+			var fieldId = resolveFieldId( e.target );
+			if ( fieldId ) {
+				self._validateField( fieldId, self._getFieldValue( fieldId ) );
 				self._updateStepButtonStates( e.target.closest( '[data-clefa-step]' ) );
 			}
 		} );
@@ -609,10 +620,27 @@
 		if ( ! inputs.length ) { return ''; }
 
 		var first = inputs[ 0 ];
+
+		// Checkbox/radio group — first match is the wrapper div, not a form input
+		if ( first.tagName !== 'INPUT' && first.tagName !== 'SELECT' && first.tagName !== 'TEXTAREA' ) {
+			var checkboxes = first.querySelectorAll( 'input[type="checkbox"]' );
+			if ( checkboxes.length ) {
+				var checked = [];
+				checkboxes.forEach( function ( inp ) { if ( inp.checked ) { checked.push( inp.value ); } } );
+				return checked;
+			}
+			var radios = first.querySelectorAll( 'input[type="radio"]' );
+			if ( radios.length ) {
+				var sel = Array.from( radios ).find( function ( r ) { return r.checked; } );
+				return sel ? sel.value : '';
+			}
+			return [];
+		}
+
 		if ( first.type === 'checkbox' ) {
-			var checked = [];
-			inputs.forEach( function ( inp ) { if ( inp.checked ) { checked.push( inp.value ); } } );
-			return checked;
+			var checked2 = [];
+			inputs.forEach( function ( inp ) { if ( inp.checked ) { checked2.push( inp.value ); } } );
+			return checked2;
 		}
 		if ( first.type === 'radio' ) {
 			var selected = Array.from( inputs ).find( function ( inp ) { return inp.checked; } );
