@@ -39,9 +39,10 @@ $select_cls  = 'clefa-input clefa-select' . ( $use_select2 ? ' clefa-select2-inp
 		} else {
 			$raw_val   = isset( $opt['value'] ) ? (string) $opt['value'] : '';
 			$raw_label = isset( $opt['label'] ) ? (string) $opt['label'] : '';
-			// Use label as fallback when value is blank so options don't collapse onto the placeholder slot.
-			$opt_val   = $raw_val !== '' ? $raw_val : $raw_label;
-			$opt_label = $raw_label !== '' ? $raw_label : $opt_val;
+			// If label is an auto-generated default like "Option 1", treat it as absent and use value.
+			$is_auto_label = (bool) preg_match( '/^Option\s*\d+$/i', $raw_label );
+			$opt_label = ( $raw_label !== '' && ! $is_auto_label ) ? $raw_label : ( $raw_val !== '' ? $raw_val : $raw_label );
+			$opt_val   = $raw_val !== '' ? $raw_val : $opt_label;
 		}
 		$is_sel    = in_array( (string) $opt_val, $selected, true );
 	?>

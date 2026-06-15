@@ -772,8 +772,8 @@
 			const label = typeof opt === 'string' ? opt : opt.label || '';
 			const value = typeof opt === 'string' ? opt : opt.value || '';
 			html += `<div class="clefa-option-row" data-clefa-option-index="${i}">
-				<input type="text" placeholder="Value" value="${esc(value)}" data-clefa-option-value="${i}" />
-				<input type="text" placeholder="Label" value="${esc(label)}" data-clefa-option-label="${i}" />
+				<input type="text" placeholder="Label (display text)" value="${esc(label)}" data-clefa-option-label="${i}" />
+				<input type="text" placeholder="Value (optional)" value="${esc(value)}" data-clefa-option-value="${i}" />
 				<button type="button" class="clefa-option-row-delete" data-clefa-action="delete-option" data-clefa-option-index="${i}"><span class="dashicons dashicons-trash"></span></button>
 			</div>`;
 		});
@@ -1713,7 +1713,7 @@
 		const result = findField( fieldId );
 		if ( ! result ) { return; }
 		result.field.options = result.field.options || [];
-		result.field.options.push({ value: '', label: 'Option ' + ( result.field.options.length + 1 ) });
+		result.field.options.push({ label: 'Option ' + ( result.field.options.length + 1 ), value: '' });
 		markDirty();
 		openFieldPanel( fieldId );
 	}
