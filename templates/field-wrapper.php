@@ -100,6 +100,11 @@ $cond_json = ! empty( $conditions ) ? esc_attr( wp_json_encode( $conditions ) ) 
 	</p>
 	<?php endif; ?>
 
+	<?php /* ── Field ID badge (visible to admins only, for logic/CSS targeting) ── */ ?>
+	<?php if ( $field_id && current_user_can( 'manage_options' ) ) : ?>
+	<small class="clefa-field-id-badge" style="display:block;font-size:.7em;color:#888;margin-top:2px;">ID: <?php echo esc_html( $field_id ); ?></small>
+	<?php endif; ?>
+
 	<?php /* ── Validation error (22.1: inline, "Below input") ── */ ?>
 	<span
 		class="clefa-error-msg<?php echo $has_error ? ' clefa-error-visible' : ''; ?>"
