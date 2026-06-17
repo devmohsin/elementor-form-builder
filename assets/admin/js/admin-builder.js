@@ -350,6 +350,13 @@
 	}
 
 	/* ---- Settings Tab ---- */
+	function updateFormTypeVisibility( formType ) {
+		document.querySelectorAll( '[data-clefa-hide-for-type]' ).forEach( el => {
+			const types = el.getAttribute( 'data-clefa-hide-for-type' ).split( ',' );
+			el.style.display = types.includes( formType ) ? 'none' : '';
+		} );
+	}
+
 	function renderSettingsCanvasTab() {
 		const s = state.form.settings;
 
@@ -370,6 +377,8 @@
 
 		const typeSelect = document.querySelector('[data-clefa-setting="form_type"]');
 		if ( typeSelect ) { typeSelect.value = state.form.form_type || 'standard'; }
+
+		updateFormTypeVisibility( state.form.form_type || 'standard' );
 
 		const descTA = document.querySelector('[data-clefa-setting="description"]');
 		if ( descTA ) { descTA.value = state.form.description || ''; }
@@ -1304,6 +1313,13 @@
 				state.form.settings.form_theme = el.value;
 			} else if ( key === 'form_type' ) {
 				state.form.form_type = el.value;
+				if ( el.value === 'login' ) {
+					// Login forms always use AJAX; never require login; never store submissions
+					state.form.settings.enable_ajax       = true;
+					state.form.settings.require_login     = false;
+					state.form.settings.store_submissions = false;
+				}
+				updateFormTypeVisibility( el.value );
 			} else if ( key === 'description' ) {
 				state.form.description = el.value;
 			} else {

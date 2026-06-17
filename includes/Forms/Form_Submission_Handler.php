@@ -166,10 +166,11 @@ class CLEFA_Form_Submission_Handler {
 
 		do_action( 'clefa_before_submission_save', $form_id, $sanitized_data, $config );
 
-		// Save submission
+		// Save submission — never store login-form attempts
 		$submission_id = 0;
+		$form_type     = $config['form_type'] ?? 'standard';
 		$store_enabled = CLEFA_Settings_Page::get( 'enable_submission_storage', true );
-		if ( $store_enabled ) {
+		if ( $store_enabled && 'login' !== $form_type ) {
 			$submission_id = $this->save_submission( $form, $sanitized_data, $data, $config, $instance_id );
 		}
 

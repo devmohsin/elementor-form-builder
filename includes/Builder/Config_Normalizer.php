@@ -7,14 +7,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 class CLEFA_Config_Normalizer {
 
 	public function normalize( array $config ) {
+		$form_type  = sanitize_text_field( $config['form_type'] ?? 'standard' );
 		$normalized = array(
 			'form_name'     => sanitize_text_field( $config['form_name'] ?? '' ),
-			'form_type'     => sanitize_text_field( $config['form_type'] ?? 'standard' ),
+			'form_type'     => $form_type,
 			'steps'         => array(),
 			'settings'      => $this->normalize_settings( $config['settings'] ?? array() ),
 			'notifications' => $this->normalize_notifications( $config['notifications'] ?? array() ),
 			'actions'       => $this->normalize_actions( $config['actions'] ?? array() ),
 		);
+
+		// Login forms always use AJAX, never require login, and never store submissions.
+		if ( 'login' === $form_type ) {
+			$normalized['settings']['enable_ajax']       = true;
+			$normalized['settings']['require_login']     = false;
+			$normalized['settings']['store_submissions'] = false;
+		}
 
 		$seen_field_ids = array();
 

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 $form_id   = isset( $form_id ) ? absint( $form_id ) : 0;
 $form_name = isset( $form_data['form_name'] ) ? esc_attr( $form_data['form_name'] ) : esc_attr__( 'Untitled Form', 'codelinden-elementor-form-addon' );
@@ -415,13 +415,13 @@ $is_published = isset( $form_data['status'] ) && 'published' === $form_data['sta
 
 					<div class="clefa-settings-section">
 						<h3 class="clefa-settings-section-title"><?php esc_html_e( 'Submission', 'codelinden-elementor-form-addon' ); ?></h3>
-						<div class="clefa-field-row clefa-field-row-toggle">
+						<div class="clefa-field-row clefa-field-row-toggle" data-clefa-hide-for-type="login">
 							<label><?php esc_html_e( 'Store Submissions', 'codelinden-elementor-form-addon' ); ?></label>
 							<div class="clefa-toggle" data-clefa-setting="store_submissions" data-clefa-value="true">
 								<span class="clefa-toggle-track"></span>
 							</div>
 						</div>
-						<div class="clefa-field-row clefa-field-row-toggle">
+						<div class="clefa-field-row clefa-field-row-toggle" data-clefa-hide-for-type="login">
 							<label><?php esc_html_e( 'Enable AJAX Submit', 'codelinden-elementor-form-addon' ); ?></label>
 							<div class="clefa-toggle" data-clefa-setting="enable_ajax" data-clefa-value="true">
 								<span class="clefa-toggle-track"></span>
@@ -439,7 +439,7 @@ $is_published = isset( $form_data['status'] ) && 'published' === $form_data['sta
 
 					<div class="clefa-settings-section">
 						<h3 class="clefa-settings-section-title"><?php esc_html_e( 'Access Control', 'codelinden-elementor-form-addon' ); ?></h3>
-						<div class="clefa-field-row clefa-field-row-toggle">
+						<div class="clefa-field-row clefa-field-row-toggle" data-clefa-hide-for-type="login">
 							<label><?php esc_html_e( 'Require Login', 'codelinden-elementor-form-addon' ); ?></label>
 							<div class="clefa-toggle" data-clefa-setting="require_login" data-clefa-value="false">
 								<span class="clefa-toggle-track"></span>
