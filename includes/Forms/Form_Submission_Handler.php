@@ -183,6 +183,17 @@ class CLEFA_Form_Submission_Handler {
 		require_once CLEFA_PLUGIN_PATH . 'includes/Actions/Abstract_Action.php';
 		$action_results = CLEFA_Form_Action_Runner::run_actions( $actions, $sanitized_data, $config, $submission_id );
 
+		// Surface failures from critical actions (e.g. login_user) as form errors
+		foreach ( $action_results as $action_type => $result ) {
+			if ( isset( $result['success'] ) && false === $result['success'] && ! empty( $result['message'] ) ) {
+				return new WP_Error(
+					'clefa_action_failed',
+					$result['message'],
+					array( 'status' => 422 )
+				);
+			}
+		}
+
 		// Update submission with action results
 		if ( $submission_id ) {
 			global $wpdb;

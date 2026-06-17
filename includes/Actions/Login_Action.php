@@ -13,13 +13,13 @@ class CLEFA_Login_Action extends CLEFA_Abstract_Action {
 			return array( 'success' => true, 'message' => 'already_logged_in' );
 		}
 
-		$username_field = $action_config['username_field'] ?? '';
-		$password_field = $action_config['password_field'] ?? '';
-		$remember_field = $action_config['remember_field'] ?? '';
+		$cfg            = $action_config['config'] ?? $action_config;
+		$username_field = $cfg['username_field'] ?? '';
+		$password_field = $cfg['password_field'] ?? '';
 
-		$username = $this->resolve_token( $action_config['username'] ?? ( $data[ $username_field ] ?? '' ), $data, $form_config );
+		$username = trim( $data[ $username_field ] ?? '' );
 		$password = $data[ $password_field ] ?? '';
-		$remember = ! empty( $data[ $remember_field ] );
+		$remember = ! empty( $cfg['remember_me'] );
 
 		if ( empty( $username ) || empty( $password ) ) {
 			return array(
