@@ -20,11 +20,11 @@ class CLEFA_Login_Action extends CLEFA_Abstract_Action {
 		$username = trim( $data[ $username_field ] ?? '' );
 		$password = $data[ $password_field ] ?? '';
 
-		// When "Show Remember Me checkbox" is enabled the checkbox submits under
-		// _clefa_remember_me. JS stores checkbox values as an array, so check both.
+		// _clefa_remember_me is an auto-injected checkbox; JS sends checked values as
+		// an array ['1'], unchecked as []. Treat any non-empty value as true.
 		if ( ! empty( $cfg['show_remember_me'] ) ) {
-			$rm_val   = $data['_clefa_remember_me'] ?? '';
-			$remember = is_array( $rm_val ) ? ! empty( $rm_val ) : ! empty( $rm_val );
+			$rm_val   = $data['_clefa_remember_me'] ?? array();
+			$remember = ! empty( $rm_val );
 		} else {
 			$remember = false;
 		}
@@ -36,17 +36,19 @@ class CLEFA_Login_Action extends CLEFA_Abstract_Action {
 			);
 		}
 
-		$credentials = array(
-			'user_login'    => sanitize_text_field( $username ),
-			'user_password' => $password,
-			'remember'      => $remember,
-		);
-
-		$user = wp_signon( $credentials, is_ssl() );
+		// Authenticate the user first so we can set cookies explicitly.
+		// wp_signon() may not reliably send Set-Cookie headers from a REST context.
+		$user = wp_authenticate( sanitize_text_field( $username ), $password );
 
 		if ( is_wp_error( $user ) ) {
 			return array( 'success' => false, 'message' => $user->get_error_message() );
 		}
+
+		// Force auth cookies even inside a REST API request.
+		add_filter( 'send_auth_cookies', '__return_true' );
+		wp_set_current_user( $user->ID );
+		wp_set_auth_cookie( $user->ID, $remember, is_ssl() );
+		do_action( 'wp_login', $user->user_login, $user );
 
 		return array( 'success' => true, 'user_id' => $user->ID );
 	}

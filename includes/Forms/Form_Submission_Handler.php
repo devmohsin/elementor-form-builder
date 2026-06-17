@@ -164,6 +164,14 @@ class CLEFA_Form_Submission_Handler {
 		$sanitized_data = CLEFA_Form_Sanitizer::sanitize( $data, $config );
 		$sanitized_data = apply_filters( 'clefa_sanitized_submission_data', $sanitized_data, $data, $config, $form_id );
 
+		// Pass through reserved internal fields (prefixed _clefa_) that are not
+		// registered form fields and therefore skipped by the sanitizer.
+		foreach ( $data as $key => $val ) {
+			if ( str_starts_with( $key, '_clefa_' ) && ! isset( $sanitized_data[ $key ] ) ) {
+				$sanitized_data[ $key ] = $val;
+			}
+		}
+
 		do_action( 'clefa_before_submission_save', $form_id, $sanitized_data, $config );
 
 		// Save submission — never store login-form attempts
