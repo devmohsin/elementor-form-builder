@@ -770,12 +770,6 @@
 			</div>
 			<div class="clefa-panel-field-row"><label>Default Value</label><input type="text" value="${esc(field.default_value||'')}" data-clefa-field-key="default_value" data-clefa-field-id="${esc(field.field_id)}" /></div>
 			<div class="clefa-panel-field-row clefa-panel-field-row-toggle">
-				<label>Required</label>
-				<div class="clefa-toggle" data-clefa-field-key="required" data-clefa-field-id="${esc(field.field_id)}" data-clefa-value="${field.required ? 'true' : 'false'}">
-					<span class="clefa-toggle-track"></span>
-				</div>
-			</div>
-			<div class="clefa-panel-field-row clefa-panel-field-row-toggle">
 				<label>Hidden</label>
 				<div class="clefa-toggle" data-clefa-field-key="hidden" data-clefa-field-id="${esc(field.field_id)}" data-clefa-value="${field.hidden ? 'true' : 'false'}">
 					<span class="clefa-toggle-track"></span>
@@ -862,6 +856,13 @@
 		const fieldType = field.field_type || 'text';
 		const fid       = esc( field.field_id );
 
+		let html = `<div class="clefa-panel-field-row clefa-panel-field-row-toggle">
+			<label>Required</label>
+			<div class="clefa-toggle" data-clefa-field-key="required" data-clefa-field-id="${fid}" data-clefa-value="${field.required ? 'true' : 'false'}">
+				<span class="clefa-toggle-track"></span>
+			</div>
+		</div>`;
+
 		// Helper: get applicable rules for this field type
 		function getApplicableRules() {
 			return Object.values( schema ).filter( r => {
@@ -915,10 +916,10 @@
 
 		const applicable = getApplicableRules();
 		if ( ! applicable.length ) {
-			return `<p style="color:var(--clefa-text-muted);font-size:.8125rem;">No validation rules available for this field type.</p>`;
+			return html + `<p style="color:var(--clefa-text-muted);font-size:.8125rem;margin-top:8px;">No additional validation rules available for this field type.</p>`;
 		}
 
-		let html = `<p style="color:var(--clefa-text-muted);font-size:.8rem;margin-bottom:10px;">Add one or more validation rules. Rules run in order and stop at the first failure.</p>`;
+		html += `<p style="color:var(--clefa-text-muted);font-size:.8rem;margin:10px 0;">Add one or more validation rules. Rules run in order and stop at the first failure.</p>`;
 
 		// Active rules list
 		vrules.forEach( ( r, i ) => { html += renderRuleRow( r, i ); } );
