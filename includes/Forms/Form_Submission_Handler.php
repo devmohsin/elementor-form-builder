@@ -218,7 +218,13 @@ class CLEFA_Form_Submission_Handler {
 			}
 		}
 
-		$success_message = wp_kses_post( $settings['success_message'] ?? CLEFA_Settings_Page::get( 'default_success_message', __( 'Form submitted successfully.', 'codelinden-elementor-form-addon' ) ) );
+		$raw_success = $settings['success_message'] ?? '';
+		if ( '' === $raw_success ) {
+			$raw_success = 'login' === $form_type
+				? __( 'Login successful', 'codelinden-elementor-form-addon' )
+				: CLEFA_Settings_Page::get( 'default_success_message', __( 'Form submitted successfully.', 'codelinden-elementor-form-addon' ) );
+		}
+		$success_message = wp_kses_post( $raw_success );
 
 		$response = array(
 			'success'        => true,
