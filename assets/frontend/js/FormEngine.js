@@ -177,7 +177,8 @@
 
 	function refreshNonce( restUrl, nonce ) {
 		return fetch( restUrl + '/refresh-nonce', {
-			method:  'GET',
+			method:      'GET',
+			credentials: 'include',
 			headers: { 'X-WP-Nonce': nonce },
 		} )
 		.then( function ( r ) { return r.json(); } )
@@ -408,7 +409,8 @@
 
 		var doSubmit = function ( nonce ) {
 			fetch( self.restUrl + '/submit', {
-				method:  'POST',
+				method:      'POST',
+				credentials: 'include',
 				headers: {
 					'Content-Type': 'application/json',
 					'X-WP-Nonce':   nonce,
