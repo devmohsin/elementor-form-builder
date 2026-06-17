@@ -745,18 +745,28 @@
 			<div class="clefa-panel-field-row"><label>Field ID <small>(stable, used in logic)</small></label><input type="text" value="${esc(field.field_id)}" data-clefa-field-key="field_id" data-clefa-field-id="${esc(field.field_id)}" /></div>
 			<div class="clefa-panel-field-row"><label>Label</label><input type="text" value="${esc(field.label||'')}" data-clefa-field-key="label" data-clefa-field-id="${esc(field.field_id)}" /></div>
 			${ ! [ 'checkbox', 'radio', 'html', 'range', 'range_dual', 'file', 'multi_file', 'heading', 'grid_break' ].includes( field.field_type ) ? `<div class="clefa-panel-field-row"><label>Placeholder</label><input type="text" value="${esc(field.placeholder||'')}" data-clefa-field-key="placeholder" data-clefa-field-id="${esc(field.field_id)}" /></div>` : '' }
-			<div class="clefa-panel-field-row"><label>Description (below input)</label><input type="text" value="${esc(field.description||'')}" data-clefa-field-key="description" data-clefa-field-id="${esc(field.field_id)}" /></div>
-			<div class="clefa-panel-field-row" style="display:flex;gap:8px;align-items:center;">
-				<label style="flex:1;">Description Font Size <small>(px)</small></label>
-				<input type="number" min="8" max="72" value="${esc(field.description_font_size||'')}" data-clefa-field-key="description_font_size" data-clefa-field-id="${esc(field.field_id)}" placeholder="inherit" style="width:72px;" />
-			</div>
-			<div class="clefa-panel-field-row" style="display:flex;gap:8px;align-items:center;">
-				<label style="flex:1;">Description Color</label>
-				<input type="text" value="${esc(field.description_color||'')}" data-clefa-field-key="description_color" data-clefa-field-id="${esc(field.field_id)}" placeholder="#888 or rgb(…)" style="width:120px;" />
-			</div>
-			<div class="clefa-panel-field-row" style="display:flex;gap:8px;align-items:center;">
-				<label style="flex:1;">Description Max Length <small>(chars)</small></label>
-				<input type="number" min="0" value="${esc(field.description_max_length||'')}" data-clefa-field-key="description_max_length" data-clefa-field-id="${esc(field.field_id)}" placeholder="∞" style="width:72px;" />
+			<div class="clefa-panel-field-row">
+				<label>Description (below input)</label>
+				<input type="text" value="${esc(field.description||'')}" data-clefa-field-key="description" data-clefa-field-id="${esc(field.field_id)}" />
+				<div class="clefa-desc-style-accordion">
+					<button type="button" class="clefa-desc-style-toggle" data-clefa-action="toggle-desc-style" aria-expanded="false">
+						<span class="dashicons dashicons-admin-appearance"></span> Style
+					</button>
+					<div class="clefa-desc-style-body" style="display:none;">
+						<div class="clefa-desc-style-row">
+							<label>Color</label>
+							<input type="color" value="${field.description_color ? esc(field.description_color) : '#888888'}" data-clefa-field-key="description_color" data-clefa-field-id="${esc(field.field_id)}" />
+						</div>
+						<div class="clefa-desc-style-row">
+							<label>Font size <small>(px)</small></label>
+							<input type="number" min="8" max="72" value="${esc(field.description_font_size||'')}" data-clefa-field-key="description_font_size" data-clefa-field-id="${esc(field.field_id)}" placeholder="inherit" style="width:64px;" />
+						</div>
+						<div class="clefa-desc-style-row">
+							<label>Max length <small>(chars)</small></label>
+							<input type="number" min="0" value="${esc(field.description_max_length||'')}" data-clefa-field-key="description_max_length" data-clefa-field-id="${esc(field.field_id)}" placeholder="∞" style="width:64px;" />
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="clefa-panel-field-row"><label>Default Value</label><input type="text" value="${esc(field.default_value||'')}" data-clefa-field-key="default_value" data-clefa-field-id="${esc(field.field_id)}" /></div>
 			<div class="clefa-panel-field-row clefa-panel-field-row-toggle">
@@ -1234,6 +1244,14 @@
 			case 'close-modal':      closeModal(); break;
 			case 'add-notification': addNotification(); break;
 			case 'toggle-accordion': toggleAccordion( target.getAttribute('data-clefa-accordion') ); break;
+			case 'toggle-desc-style': {
+				const body = target.closest('.clefa-desc-style-accordion').querySelector('.clefa-desc-style-body');
+				const open = body.style.display === 'none';
+				body.style.display = open ? '' : 'none';
+				target.setAttribute('aria-expanded', open ? 'true' : 'false');
+				target.classList.toggle('clefa-desc-style-toggle--open', open);
+				break;
+			}
 			case 'toggle-action-item': toggleActionItem( target.getAttribute('data-clefa-action-id') ); break;
 			case 'delete-action':    deleteAction( target.getAttribute('data-clefa-action-id') ); break;
 			case 'toggle-notif':     toggleNotifItem( target.getAttribute('data-clefa-notif-id') ); break;
