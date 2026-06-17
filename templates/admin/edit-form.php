@@ -431,10 +431,6 @@ $is_published = isset( $form_data['status'] ) && 'published' === $form_data['sta
 							<label><?php esc_html_e( 'Success Message', 'codelinden-elementor-form-addon' ); ?></label>
 							<input type="text" data-clefa-setting="success_message" placeholder="<?php esc_attr_e( 'Form submitted successfully.', 'codelinden-elementor-form-addon' ); ?>" />
 						</div>
-						<div class="clefa-field-row">
-							<label><?php esc_html_e( 'Redirect URL (after submit)', 'codelinden-elementor-form-addon' ); ?></label>
-							<input type="url" data-clefa-setting="redirect_url" placeholder="https://" />
-						</div>
 						<div class="clefa-field-row" data-clefa-show-for-type="login" style="display:none">
 							<label><?php esc_html_e( 'Redirect delay (seconds)', 'codelinden-elementor-form-addon' ); ?></label>
 							<input type="number" min="0" max="30" data-clefa-setting="login_success_delay" placeholder="2" />
