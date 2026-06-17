@@ -461,8 +461,11 @@
 	}
 
 	function syncRoleRedirectVisibility() {
-		const wrap = document.getElementById('clefa-role-redirects-wrap');
-		if ( wrap ) { wrap.style.display = state.form.settings.use_role_redirect ? '' : 'none'; }
+		const roleBased = !! state.form.settings.use_role_redirect;
+		const roleWrap   = document.getElementById('clefa-role-redirects-wrap');
+		const singleWrap = document.getElementById('clefa-single-redirect-wrap');
+		if ( roleWrap )   { roleWrap.style.display   = roleBased ? '' : 'none'; }
+		if ( singleWrap ) { singleWrap.style.display  = roleBased ? 'none' : ''; }
 	}
 
 	function syncThemePickerUI( activeKey ) {
