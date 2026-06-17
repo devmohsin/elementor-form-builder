@@ -20,10 +20,11 @@ class CLEFA_Login_Action extends CLEFA_Abstract_Action {
 		$username = trim( $data[ $username_field ] ?? '' );
 		$password = $data[ $password_field ] ?? '';
 
-		// When "Show Remember Me checkbox" is enabled, the auto-rendered checkbox
-		// submits under the reserved key _clefa_remember_me. Fall back to false.
+		// When "Show Remember Me checkbox" is enabled the checkbox submits under
+		// _clefa_remember_me. JS stores checkbox values as an array, so check both.
 		if ( ! empty( $cfg['show_remember_me'] ) ) {
-			$remember = ! empty( $data['_clefa_remember_me'] );
+			$rm_val   = $data['_clefa_remember_me'] ?? '';
+			$remember = is_array( $rm_val ) ? ! empty( $rm_val ) : ! empty( $rm_val );
 		} else {
 			$remember = false;
 		}

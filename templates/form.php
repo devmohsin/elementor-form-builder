@@ -150,22 +150,6 @@ $js_config = wp_json_encode( array(
 	endforeach;
 	?>
 
-		<?php if ( $show_remember_me ) : ?>
-		<div class="clefa-field-wrap clefa-remember-me-wrap">
-			<label class="clefa-remember-me-label">
-				<input
-					type="checkbox"
-					name="clefa_field[_clefa_remember_me]"
-					value="1"
-					data-clefa-input
-					data-clefa-field-id="_clefa_remember_me"
-					class="clefa-input clefa-input-checkbox"
-				/>
-				<?php echo esc_html( $remember_me_label ); ?>
-			</label>
-		</div>
-		<?php endif; ?>
-
 		<?php if ( ! empty( $settings['enable_antispam'] ) ) : ?>
 		<div class="clefa-hp" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden;pointer-events:none" tabindex="-1">
 			<label for="clefa-hp-<?php echo esc_attr( $form_uuid ); ?>">
