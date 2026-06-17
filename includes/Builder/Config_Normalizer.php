@@ -105,6 +105,8 @@ class CLEFA_Config_Normalizer {
 			'redirect_url'           => esc_url_raw( $settings['redirect_url'] ?? '' ),
 			'success_message'        => sanitize_text_field( $settings['success_message'] ?? '' ),
 			'error_message'          => sanitize_text_field( $settings['error_message'] ?? '' ),
+			'use_role_redirect'      => (bool) ( $settings['use_role_redirect'] ?? false ),
+			'role_redirects'         => $this->normalize_role_redirects( $settings['role_redirects'] ?? array() ),
 			'error_placement'        => in_array( $settings['error_placement'] ?? 'below', array( 'above', 'below' ), true ) ? ( $settings['error_placement'] ?? 'below' ) : 'below',
 			'login_error_message'    => sanitize_text_field( $settings['login_error_message'] ?? '' ),
 			'login_success_delay'    => absint( $settings['login_success_delay'] ?? 2 ),
@@ -112,6 +114,22 @@ class CLEFA_Config_Normalizer {
 			'form_theme'             => sanitize_key( $settings['form_theme'] ?? '' ),
 			'custom_styles'          => $this->normalize_custom_styles( $settings['custom_styles'] ?? array() ),
 		);
+	}
+
+	private function normalize_role_redirects( $raw ) {
+		if ( ! is_array( $raw ) ) {
+			return array();
+		}
+		$result     = array();
+		$valid_roles = array_keys( wp_roles()->roles );
+		foreach ( $raw as $entry ) {
+			$role = sanitize_key( $entry['role'] ?? '' );
+			$url  = esc_url_raw( $entry['url'] ?? '' );
+			if ( $role && $url && in_array( $role, $valid_roles, true ) ) {
+				$result[] = array( 'role' => $role, 'url' => $url );
+			}
+		}
+		return $result;
 	}
 
 	/**

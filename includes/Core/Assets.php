@@ -58,6 +58,7 @@ class CLEFA_Assets {
 					'actionTypes'     => self::get_action_type_definitions(),
 					'dependencies'    => CLEFA_Plugin_Dependencies::get_status(),
 					'validationRules' => CLEFA_Validation_Registry::get_builder_schema(),
+					'wpRoles'         => self::get_wp_roles(),
 					'i18n'            => self::get_builder_i18n(),
 				)
 			);
@@ -403,6 +404,18 @@ class CLEFA_Assets {
 			);
 		}
 		return $groups;
+	}
+
+	private static function get_wp_roles() {
+		$roles  = wp_roles()->roles;
+		$result = array();
+		foreach ( $roles as $key => $role ) {
+			$result[] = array(
+				'value' => $key,
+				'label' => translate_user_role( $role['name'] ),
+			);
+		}
+		return $result;
 	}
 
 	private static function get_builder_i18n() {

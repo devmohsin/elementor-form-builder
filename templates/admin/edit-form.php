@@ -464,6 +464,21 @@ $is_published = isset( $form_data['status'] ) && 'published' === $form_data['sta
 								<span class="clefa-toggle-track"></span>
 							</div>
 						</div>
+						<div class="clefa-field-row clefa-field-row-toggle">
+							<label><?php esc_html_e( 'Role-Based Redirects', 'codelinden-elementor-form-addon' ); ?></label>
+							<div class="clefa-toggle" data-clefa-setting="use_role_redirect" data-clefa-value="false">
+								<span class="clefa-toggle-track"></span>
+							</div>
+						</div>
+						<div class="clefa-field-row" id="clefa-role-redirects-wrap" style="display:none">
+							<div class="clefa-role-redirects" data-clefa-role="role-redirects">
+								<!-- Rows rendered by JS -->
+							</div>
+							<button type="button" class="clefa-btn clefa-btn-sm clefa-btn-outline" data-clefa-action="add-role-redirect" style="margin-top:6px">
+								<span class="dashicons dashicons-plus-alt2"></span>
+								<?php esc_html_e( 'Add Role', 'codelinden-elementor-form-addon' ); ?>
+							</button>
+						</div>
 					</div>
 
 					<div class="clefa-settings-section">

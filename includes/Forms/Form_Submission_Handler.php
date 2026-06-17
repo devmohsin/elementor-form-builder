@@ -217,8 +217,17 @@ class CLEFA_Form_Submission_Handler {
 
 		do_action( 'clefa_after_submission_save', $form_id, $sanitized_data, $submission_id, $action_results );
 
-		// Build response
+		// Build response — use role-based redirect when enabled and user is logged in
 		$redirect_url = $settings['redirect_url'] ?? '';
+		if ( ! empty( $settings['use_role_redirect'] ) && ! empty( $settings['role_redirects'] ) && is_user_logged_in() ) {
+			$user_roles = (array) wp_get_current_user()->roles;
+			foreach ( $settings['role_redirects'] as $rr ) {
+				if ( in_array( $rr['role'], $user_roles, true ) && ! empty( $rr['url'] ) ) {
+					$redirect_url = $rr['url'];
+					break;
+				}
+			}
+		}
 		foreach ( $action_results as $res ) {
 			if ( ! empty( $res['redirect_url'] ) ) {
 				$redirect_url = $res['redirect_url'];

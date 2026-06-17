@@ -413,6 +413,56 @@
 			const rangeEl = document.querySelector('[data-clefa-custom-style="' + key + '"]');
 			if ( rangeEl ) { updateRangeLabel( key, rangeEl.value ); }
 		});
+
+		renderRoleRedirects();
+		syncRoleRedirectVisibility();
+	}
+
+	/* ---- Role-Based Redirects ---- */
+	const wpRoles = ( typeof clefaBuilderData !== 'undefined' && clefaBuilderData.wpRoles ) || [];
+
+	function renderRoleRedirects() {
+		const wrap = document.querySelector('[data-clefa-role="role-redirects"]');
+		if ( ! wrap ) { return; }
+		const rows = state.form.settings.role_redirects || [];
+		if ( ! rows.length ) { wrap.innerHTML = '<p style="font-size:.8rem;color:var(--clefa-text-muted);margin:0 0 4px;">No role redirects added yet.</p>'; return; }
+		wrap.innerHTML = rows.map( ( row, i ) => {
+			const roleOpts = wpRoles.map( r => `<option value="${esc(r.value)}"${r.value === row.role ? ' selected' : ''}>${esc(r.label)}</option>` ).join('');
+			return `<div class="clefa-role-redirect-row" style="display:flex;gap:6px;align-items:center;margin-bottom:6px;">
+				<select data-clefa-rr-index="${i}" data-clefa-rr-key="role" style="width:130px;flex-shrink:0;">
+					<option value="">— select role —</option>
+					${roleOpts}
+				</select>
+				<input type="url" placeholder="https://" value="${esc(row.url||'')}" data-clefa-rr-index="${i}" data-clefa-rr-key="url" style="flex:1;" />
+				<button type="button" class="clefa-btn clefa-btn-xs clefa-btn-danger-ghost" data-clefa-action="delete-role-redirect" data-clefa-rr-index="${i}" title="Remove">
+					<span class="dashicons dashicons-trash"></span>
+				</button>
+			</div>`;
+		} ).join('');
+
+		wrap.querySelectorAll('[data-clefa-rr-key]').forEach( el => {
+			el.addEventListener( 'change', () => {
+				const idx = parseInt( el.getAttribute('data-clefa-rr-index'), 10 );
+				const key = el.getAttribute('data-clefa-rr-key');
+				if ( state.form.settings.role_redirects[ idx ] ) {
+					state.form.settings.role_redirects[ idx ][ key ] = el.value;
+					markDirty();
+				}
+			} );
+			el.addEventListener( 'input', () => {
+				const idx = parseInt( el.getAttribute('data-clefa-rr-index'), 10 );
+				const key = el.getAttribute('data-clefa-rr-key');
+				if ( state.form.settings.role_redirects[ idx ] ) {
+					state.form.settings.role_redirects[ idx ][ key ] = el.value;
+					markDirty();
+				}
+			} );
+		} );
+	}
+
+	function syncRoleRedirectVisibility() {
+		const wrap = document.getElementById('clefa-role-redirects-wrap');
+		if ( wrap ) { wrap.style.display = state.form.settings.use_role_redirect ? '' : 'none'; }
 	}
 
 	function syncThemePickerUI( activeKey ) {
@@ -1165,6 +1215,7 @@
 			const cur = settingToggle.getAttribute( 'data-clefa-value' ) === 'true';
 			settingToggle.setAttribute( 'data-clefa-value', cur ? 'false' : 'true' );
 			state.form.settings[ key ] = ! cur;
+			if ( key === 'use_role_redirect' ) { syncRoleRedirectVisibility(); }
 			markDirty();
 			return true;
 		}
@@ -1245,6 +1296,19 @@
 			case 'close-modal':      closeModal(); break;
 			case 'add-notification': addNotification(); break;
 			case 'toggle-accordion': toggleAccordion( target.getAttribute('data-clefa-accordion') ); break;
+			case 'add-role-redirect':
+				if ( ! state.form.settings.role_redirects ) { state.form.settings.role_redirects = []; }
+				state.form.settings.role_redirects.push( { role: '', url: '' } );
+				renderRoleRedirects();
+				markDirty();
+				break;
+			case 'delete-role-redirect': {
+				const rrIdx = parseInt( target.getAttribute('data-clefa-rr-index'), 10 );
+				state.form.settings.role_redirects.splice( rrIdx, 1 );
+				renderRoleRedirects();
+				markDirty();
+				break;
+			}
 			case 'toggle-desc-style': {
 				const body = target.closest('.clefa-desc-style-accordion').querySelector('.clefa-desc-style-body');
 				const open = body.style.display === 'none';
