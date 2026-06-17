@@ -89,17 +89,21 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 	<?php if ( $is_last && ! empty( $show_remember_me ) ) : ?>
 	<div class="clefa-field-wrap clefa-remember-me-wrap">
-		<label class="clefa-remember-me-label">
-			<input
-				type="checkbox"
-				name="clefa_field[_clefa_remember_me]"
-				value="1"
-				data-clefa-input
-				data-clefa-field-id="_clefa_remember_me"
-				class="clefa-input clefa-input-checkbox"
-			/>
-			<?php echo esc_html( $remember_me_label ?? 'Remember Me' ); ?>
-		</label>
+		<div class="clefa-checkbox-group">
+			<label class="clefa-checkbox-label clefa-checkbox-label-single" for="clefa-field-remember-me">
+				<input
+					type="checkbox"
+					id="clefa-field-remember-me"
+					name="clefa_field[_clefa_remember_me]"
+					value="1"
+					data-clefa-input
+					data-clefa-field-id="_clefa_remember_me"
+					class="clefa-checkbox"
+				/>
+				<span class="clefa-checkbox-indicator"></span>
+				<span class="clefa-checkbox-text"><?php echo esc_html( $remember_me_label ?? 'Remember Me' ); ?></span>
+			</label>
+		</div>
 	</div>
 	<?php endif; ?>
 
