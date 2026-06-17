@@ -13,19 +13,19 @@ class CLEFA_Login_Action extends CLEFA_Abstract_Action {
 			return array( 'success' => true, 'message' => 'already_logged_in' );
 		}
 
-		$cfg               = $action_config['config'] ?? $action_config;
-		$username_field    = $cfg['username_field']    ?? '';
-		$password_field    = $cfg['password_field']    ?? '';
-		$remember_me_field = $cfg['remember_me_field'] ?? '';
+		$cfg            = $action_config['config'] ?? $action_config;
+		$username_field = $cfg['username_field'] ?? '';
+		$password_field = $cfg['password_field'] ?? '';
 
 		$username = trim( $data[ $username_field ] ?? '' );
 		$password = $data[ $password_field ] ?? '';
 
-		// Use mapped checkbox field value when set, otherwise fall back to the config toggle.
-		if ( $remember_me_field && array_key_exists( $remember_me_field, $data ) ) {
-			$remember = ! empty( $data[ $remember_me_field ] );
+		// When "Show Remember Me checkbox" is enabled, the auto-rendered checkbox
+		// submits under the reserved key _clefa_remember_me. Fall back to false.
+		if ( ! empty( $cfg['show_remember_me'] ) ) {
+			$remember = ! empty( $data['_clefa_remember_me'] );
 		} else {
-			$remember = ! empty( $cfg['remember_me'] );
+			$remember = false;
 		}
 
 		if ( empty( $username ) || empty( $password ) ) {

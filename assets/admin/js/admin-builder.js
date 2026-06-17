@@ -491,8 +491,8 @@
 			case 'login_user':
 				html += renderSelectField( 'Username/Email field', 'action-config-username_field', action.action_id, fieldOptions, cfg.username_field || '' );
 				html += renderSelectField( 'Password field', 'action-config-password_field', action.action_id, fieldOptions, cfg.password_field || '' );
-				html += renderSelectField( 'Remember Me field (optional)', 'action-config-remember_me_field', action.action_id, [ { value: '', label: '— none (use toggle below) —' }, ...fieldOptions ], cfg.remember_me_field || '' );
-				html += renderToggleRow( 'Remember me (default)', 'action-config-remember_me', action.action_id, cfg.remember_me || false );
+				html += renderToggleRow( 'Show Remember Me checkbox', 'action-config-show_remember_me', action.action_id, cfg.show_remember_me || false );
+				html += renderPanelField( 'Remember Me label', 'text', cfg.remember_me_label || 'Remember Me', 'action-config-remember_me_label', action.action_id );
 				break;
 			case 'update_user_meta':
 				html += renderPanelField( 'Meta key', 'text', cfg.meta_key || '', 'action-config-meta_key', action.action_id );

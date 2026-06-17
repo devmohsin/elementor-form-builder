@@ -51,6 +51,19 @@ $form_type       = $config['form_type'] ?? 'standard';
 $error_placement = $settings['error_placement'] ?? 'below';
 $success_delay   = ( 'login' === $form_type ) ? absint( $settings['login_success_delay'] ?? 2 ) : 0;
 
+// Detect remember-me config from login_user action
+$show_remember_me  = false;
+$remember_me_label = 'Remember Me';
+if ( 'login' === $form_type ) {
+	foreach ( $config['actions'] ?? array() as $action ) {
+		if ( ( $action['action_type'] ?? '' ) === 'login_user' && ! empty( $action['config']['show_remember_me'] ) ) {
+			$show_remember_me  = true;
+			$remember_me_label = sanitize_text_field( $action['config']['remember_me_label'] ?? 'Remember Me' );
+			break;
+		}
+	}
+}
+
 // Encode config for JS (only the parts needed: steps, conditions, validation)
 $js_config = wp_json_encode( array(
 	'steps' => array_map( function( $step ) {
@@ -136,6 +149,22 @@ $js_config = wp_json_encode( array(
 		if ( $step_tpl ) { include $step_tpl; }
 	endforeach;
 	?>
+
+		<?php if ( $show_remember_me ) : ?>
+		<div class="clefa-field-wrap clefa-remember-me-wrap">
+			<label class="clefa-remember-me-label">
+				<input
+					type="checkbox"
+					name="clefa_field[_clefa_remember_me]"
+					value="1"
+					data-clefa-input
+					data-clefa-field-id="_clefa_remember_me"
+					class="clefa-input clefa-input-checkbox"
+				/>
+				<?php echo esc_html( $remember_me_label ); ?>
+			</label>
+		</div>
+		<?php endif; ?>
 
 		<?php if ( ! empty( $settings['enable_antispam'] ) ) : ?>
 		<div class="clefa-hp" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden;pointer-events:none" tabindex="-1">
