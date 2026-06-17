@@ -435,6 +435,25 @@ $is_published = isset( $form_data['status'] ) && 'published' === $form_data['sta
 							<label><?php esc_html_e( 'Redirect URL (after submit)', 'codelinden-elementor-form-addon' ); ?></label>
 							<input type="url" data-clefa-setting="redirect_url" placeholder="https://" />
 						</div>
+						<div class="clefa-field-row" data-clefa-show-for-type="login" style="display:none">
+							<label><?php esc_html_e( 'Redirect delay (seconds)', 'codelinden-elementor-form-addon' ); ?></label>
+							<input type="number" min="0" max="30" data-clefa-setting="login_success_delay" placeholder="2" />
+						</div>
+					</div>
+
+					<div class="clefa-settings-section">
+						<h3 class="clefa-settings-section-title"><?php esc_html_e( 'Error Messages', 'codelinden-elementor-form-addon' ); ?></h3>
+						<div class="clefa-field-row">
+							<label><?php esc_html_e( 'Message Placement', 'codelinden-elementor-form-addon' ); ?></label>
+							<select data-clefa-setting="error_placement">
+								<option value="below"><?php esc_html_e( 'Below the form', 'codelinden-elementor-form-addon' ); ?></option>
+								<option value="above"><?php esc_html_e( 'Above the form', 'codelinden-elementor-form-addon' ); ?></option>
+							</select>
+						</div>
+						<div class="clefa-field-row" data-clefa-show-for-type="login" style="display:none">
+							<label><?php esc_html_e( 'Custom Error Message', 'codelinden-elementor-form-addon' ); ?></label>
+							<input type="text" data-clefa-setting="login_error_message" placeholder="<?php esc_attr_e( 'Leave blank to show WordPress default error', 'codelinden-elementor-form-addon' ); ?>" />
+						</div>
 					</div>
 
 					<div class="clefa-settings-section">

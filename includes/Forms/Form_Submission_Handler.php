@@ -186,11 +186,12 @@ class CLEFA_Form_Submission_Handler {
 		// Surface failures from critical actions (e.g. login_user) as form errors
 		foreach ( $action_results as $action_type => $result ) {
 			if ( isset( $result['success'] ) && false === $result['success'] && ! empty( $result['message'] ) ) {
-				return new WP_Error(
-					'clefa_action_failed',
-					$result['message'],
-					array( 'status' => 422 )
-				);
+				$error_message = $result['message'];
+				// Allow login forms to override the error text shown to the user.
+				if ( 'login' === $form_type && ! empty( $settings['login_error_message'] ) ) {
+					$error_message = $settings['login_error_message'];
+				}
+				return new WP_Error( 'clefa_action_failed', $error_message, array( 'status' => 422 ) );
 			}
 		}
 

@@ -355,6 +355,10 @@
 			const types = el.getAttribute( 'data-clefa-hide-for-type' ).split( ',' );
 			el.style.display = types.includes( formType ) ? 'none' : '';
 		} );
+		document.querySelectorAll( '[data-clefa-show-for-type]' ).forEach( el => {
+			const types = el.getAttribute( 'data-clefa-show-for-type' ).split( ',' );
+			el.style.display = types.includes( formType ) ? '' : 'none';
+		} );
 	}
 
 	function renderSettingsCanvasTab() {
@@ -487,7 +491,8 @@
 			case 'login_user':
 				html += renderSelectField( 'Username/Email field', 'action-config-username_field', action.action_id, fieldOptions, cfg.username_field || '' );
 				html += renderSelectField( 'Password field', 'action-config-password_field', action.action_id, fieldOptions, cfg.password_field || '' );
-				html += renderToggleRow( 'Remember me', 'action-config-remember_me', action.action_id, cfg.remember_me || false );
+				html += renderSelectField( 'Remember Me field (optional)', 'action-config-remember_me_field', action.action_id, [ { value: '', label: '— none (use toggle below) —' }, ...fieldOptions ], cfg.remember_me_field || '' );
+				html += renderToggleRow( 'Remember me (default)', 'action-config-remember_me', action.action_id, cfg.remember_me || false );
 				break;
 			case 'update_user_meta':
 				html += renderPanelField( 'Meta key', 'text', cfg.meta_key || '', 'action-config-meta_key', action.action_id );
@@ -686,11 +691,12 @@
 	}
 
 	function renderFieldPanelSections( field ) {
+		const isLogin = ( state.form.form_type || 'standard' ) === 'login';
 		const sections = [
 			{ key: 'general',    label: 'General',    content: renderGeneralSection(field) },
 			{ key: 'validation', label: 'Validation', content: renderValidationSection(field) },
 			{ key: 'conditions', label: 'Conditions', content: renderConditionsSection(field) },
-			{ key: 'mapping',    label: 'Mapping',    content: renderMappingSection(field) },
+			...( isLogin ? [] : [ { key: 'mapping', label: 'Mapping', content: renderMappingSection(field) } ] ),
 			{ key: 'advanced',   label: 'Advanced',   content: renderAdvancedSection(field) },
 		];
 

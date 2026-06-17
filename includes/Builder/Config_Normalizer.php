@@ -22,6 +22,10 @@ class CLEFA_Config_Normalizer {
 			$normalized['settings']['enable_ajax']       = true;
 			$normalized['settings']['require_login']     = false;
 			$normalized['settings']['store_submissions'] = false;
+			// Default success message for login forms if none is configured.
+			if ( '' === $normalized['settings']['success_message'] ) {
+				$normalized['settings']['success_message'] = __( 'Login successful', 'codelinden-elementor-form-addon' );
+			}
 		}
 
 		$seen_field_ids = array();
@@ -101,6 +105,9 @@ class CLEFA_Config_Normalizer {
 			'redirect_url'           => esc_url_raw( $settings['redirect_url'] ?? '' ),
 			'success_message'        => sanitize_text_field( $settings['success_message'] ?? '' ),
 			'error_message'          => sanitize_text_field( $settings['error_message'] ?? '' ),
+			'error_placement'        => in_array( $settings['error_placement'] ?? 'below', array( 'above', 'below' ), true ) ? ( $settings['error_placement'] ?? 'below' ) : 'below',
+			'login_error_message'    => sanitize_text_field( $settings['login_error_message'] ?? '' ),
+			'login_success_delay'    => absint( $settings['login_success_delay'] ?? 2 ),
 			'allowed_roles'          => array_map( 'sanitize_text_field', (array) ( $settings['allowed_roles'] ?? array() ) ),
 			'form_theme'             => sanitize_key( $settings['form_theme'] ?? '' ),
 			'custom_styles'          => $this->normalize_custom_styles( $settings['custom_styles'] ?? array() ),

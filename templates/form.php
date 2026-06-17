@@ -47,6 +47,10 @@ foreach ( $css_var_map as $key => $var ) {
 // Also apply bg_color as a proper background property
 $inline_style = $inline_vars ? implode( ';', $inline_vars ) . ';' : '';
 
+$form_type       = $config['form_type'] ?? 'standard';
+$error_placement = $settings['error_placement'] ?? 'below';
+$success_delay   = ( 'login' === $form_type ) ? absint( $settings['login_success_delay'] ?? 2 ) : 0;
+
 // Encode config for JS (only the parts needed: steps, conditions, validation)
 $js_config = wp_json_encode( array(
 	'steps' => array_map( function( $step ) {
@@ -89,12 +93,24 @@ $js_config = wp_json_encode( array(
 	data-clefa-reset-on-success="<?php echo esc_attr( $reset_on_success ); ?>"
 	data-clefa-transitions="<?php echo $enable_transitions ? '1' : '0'; ?>"
 	data-clefa-persist-draft="<?php echo ! empty( $settings['persist_draft'] ) ? '1' : '0'; ?>"
+	data-clefa-form-type="<?php echo esc_attr( $form_type ); ?>"
+	data-clefa-success-delay="<?php echo esc_attr( $success_delay ); ?>"
 	data-clefa-config="<?php echo esc_attr( $js_config ); ?>"
 	<?php if ( $form_theme ) : ?>data-clefa-theme="<?php echo esc_attr( $form_theme ); ?>"<?php endif; ?>
 	<?php if ( $inline_style ) : ?>style="<?php echo $inline_style; ?>"<?php endif; ?>
 >
 
 	<?php do_action( 'clefa_before_form_fields', $form_id_attr, $config ); ?>
+
+	<?php if ( 'above' === $error_placement ) : ?>
+	<div
+		class="clefa-form-message"
+		data-clefa-message
+		role="status"
+		aria-live="polite"
+		style="display:none"
+	></div>
+	<?php endif; ?>
 
 	<?php if ( $has_steps ) : ?>
 	<div class="clefa-progress" data-clefa-progress aria-label="<?php esc_attr_e( 'Form progress', 'codelinden-elementor-form-addon' ); ?>">
@@ -144,6 +160,7 @@ $js_config = wp_json_encode( array(
 
 	</form>
 
+	<?php if ( 'below' === $error_placement ) : ?>
 	<div
 		class="clefa-form-message"
 		data-clefa-message
@@ -151,6 +168,7 @@ $js_config = wp_json_encode( array(
 		aria-live="polite"
 		style="display:none"
 	></div>
+	<?php endif; ?>
 
 	<?php do_action( 'clefa_after_form_fields', $form_id_attr, $config ); ?>
 </div>

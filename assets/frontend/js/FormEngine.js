@@ -462,9 +462,15 @@
 
 		if ( body.redirect_url ) {
 			dispatch( self.formEl, 'clefa:redirect:before', { url: body.redirect_url, formId: self.formId } );
-			// Dev Hub test iframe: never navigate away from the runner document.
 			if ( ! window.CLEFA_TESTING ) {
-				window.location.href = body.redirect_url;
+				var successDelay = parseInt( self.formEl.getAttribute( 'data-clefa-success-delay' ), 10 ) || 0;
+				if ( successDelay > 0 ) {
+					var successMsg = body.message_html || body.message || 'Form submitted successfully.';
+					showFormMessage( self.formEl, successMsg, 'success' );
+					setTimeout( function () { window.location.href = body.redirect_url; }, successDelay * 1000 );
+				} else {
+					window.location.href = body.redirect_url;
+				}
 			}
 			return;
 		}
